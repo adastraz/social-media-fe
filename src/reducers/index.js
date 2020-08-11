@@ -2,7 +2,8 @@ import {
     FETCHING_START,
     FETCHING_ERROR,
     FETCHING_SUCCESS_LOGIN,
-    CLEAR_ERROR
+    CLEAR_ERROR,
+    FETCHING_SUCCESS
 } from '../actions'
 
 const initialState = {
@@ -20,10 +21,21 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 isLoading: true
             }
+        case FETCHING_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload
+            }
         case FETCHING_SUCCESS_LOGIN:
             return {
                 ...state,
                 user: action.payload,
+                isLoading: false
+            }
+        case FETCHING_SUCCESS: 
+            return {
+                ...state,
                 isLoading: false
             }
         default: 

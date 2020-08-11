@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { login } from '../actions'
+import { login, register } from '../actions'
 
 const SignIn = props => {
+    const location = useLocation()
     const [user, setUser] = useState({
         username: '',
-        password: ''
+        password: '',
+        birthday: ''
     })
+    
 
     const handleChanges = e => {
         setUser({
@@ -18,13 +21,16 @@ const SignIn = props => {
 
     const submitForm = e => {
         e.preventDefault()
-        props.login(user)
+        location.pathname == '/signin' ? props.login(user) : props.register(user)
     }
 
     return (
         <div>
             <Link to='/'>Welcome</Link>
-            <Link to='/signup'>Create Account</Link>
+            {location.pathname == '/signin' ? 
+                <Link to='/signup'>Create Account</Link> :
+                <Link to='/signin'>Login</Link>
+            }
             <form onSubmit={submitForm}>
                 <label htmlFor='username'>Username: </label>
                 <input 
@@ -33,6 +39,7 @@ const SignIn = props => {
                     name='username'
                     onChange={handleChanges}
                     value={user.username}
+                    placeholder='Username'
                 />
                 <input 
                     id='password'
@@ -40,8 +47,22 @@ const SignIn = props => {
                     name='password'
                     onChange={handleChanges}
                     value={user.password}
+                    placeholder='Password'
                 />
-                <button type='submit'>Sign In</button>
+                {location.pathname == '/signin' ?
+                    <button type='submit'>Sign In</button> :
+                    <>
+                        <input 
+                            id='birthday'
+                            type='date'
+                            name='birthday'
+                            onChange={handleChanges}
+                            value={user.birthday}
+                            placeholder='Birthday'
+                        />
+                        <button type='submit'>Sign Up</button>
+                    </> 
+                }
             </form>
         </div>
     )
@@ -57,4 +78,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { login })(SignIn)
+export default connect(mapStateToProps, { login, register })(SignIn)
