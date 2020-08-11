@@ -6,7 +6,7 @@ export const FETCHING_ERROR = 'FETCHING_ERROR'
 export const FETCHING_SUCCESS_LOGIN = 'FETCHING_SUCCESS_LOGIN'
 export const CLEAR_ERROR = 'CLEAR_ERROR'
 export const FETCHING_SUCCESS = 'FETCHING_SUCCESS'
-export const FETCHING_SUCCESS_FOLLOWERS = 'FETCHING_SUCCESS_FOLLOWERS'
+export const FETCHING_SUCCESS_FOLLOWING = 'FETCHING_SUCCESS_FOLLOWING'
 
 export const login = creds => dispatch => {
     dispatch ({ type: FETCHING_START })
@@ -50,11 +50,11 @@ export const fetchUser = id => dispatch => {
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
 
-export const getFollowers = id => dispatch => {
+export const getFollowing = id => dispatch => {
     dispatch({ type: FETCHING_START })
     axiosWithAuth()
         .get(`/api/friends/${id}`)
             .then(res => {
-                dispatch({ type: FETCHING_SUCCESS_FOLLOWERS, payload: res.data })
+                dispatch({ type: FETCHING_SUCCESS_FOLLOWING, payload: res.data })
             })
 }
