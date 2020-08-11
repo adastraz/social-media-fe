@@ -4,7 +4,7 @@ import PrivateRoute from './components/PrivateRoute.js'
 import history from './utils/history'
 import Welcome from './components/Welcome.js'
 import SignIn from './components/SignIn.js'
-import ListFollowers from './components/followers/ListFollowers.js'
+import ListFollowing from './components/followers/ListFollowing.js'
 import Profile from './components/user/Profile.js'
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
       <div>
         <Switch>
           <PrivateRoute path='/profile/:id' component={Profile} />
-          <PrivateRoute path='/followers' component={ListFollowers} />
+          <PrivateRoute path='/followers' component={ListFollowing} />
           <Route exact path='/' component={Welcome} />
           <Route path='/signup' component={SignIn} />
           <Route path='/signin' component={SignIn} />
