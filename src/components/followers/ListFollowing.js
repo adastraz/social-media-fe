@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { getFollowing } from '../../actions'
 
 const ListFollowing = props => {
@@ -12,7 +11,7 @@ const ListFollowing = props => {
     return (
         <>
             <h1>Following</h1>
-            <Link to={`/profile/${props.user.id}`}>Profile</Link>
+            <hr></hr>
             {props.following.map(follow => (
                 <h1>{follow.username}</h1>
             ))}
