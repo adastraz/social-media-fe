@@ -4,7 +4,8 @@ import {
     FETCHING_SUCCESS_LOGIN,
     CLEAR_ERROR,
     FETCHING_SUCCESS,
-    FETCHING_SUCCESS_FOLLOWING
+    FETCHING_SUCCESS_FOLLOWING,
+    FETCHING_SUCCESS_USERS
 } from '../actions'
 
 const initialState = {
@@ -43,6 +44,11 @@ export const reducer = (state = initialState, action) => {
             return{
                 ...state,
                 following: action.payload
+            }
+        case FETCHING_SUCCESS_USERS:
+            return {
+                ...state,
+                users: action.payload
             }
         default: 
         return state

@@ -7,6 +7,7 @@ export const FETCHING_SUCCESS_LOGIN = 'FETCHING_SUCCESS_LOGIN'
 export const CLEAR_ERROR = 'CLEAR_ERROR'
 export const FETCHING_SUCCESS = 'FETCHING_SUCCESS'
 export const FETCHING_SUCCESS_FOLLOWING = 'FETCHING_SUCCESS_FOLLOWING'
+export const FETCHING_SUCCESS_USERS = 'FETCHING_SUCCESS_USERS'
 
 export const login = creds => dispatch => {
     dispatch ({ type: FETCHING_START })
@@ -46,6 +47,16 @@ export const fetchUser = id => dispatch => {
         .get(`/api/users/${id}`)
             .then(res => {
                 dispatch({ type: FETCHING_SUCCESS_LOGIN, payload: res.data })
+            })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
+export const fetchUsers = () => dispatch => {
+    dispatch ({ type: FETCHING_START })
+    axiosWithAuth()
+        .get(`/api/users`)
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS_USERS, payload: res.data })
             })
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
