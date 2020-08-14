@@ -6,14 +6,18 @@ import Welcome from './components/Welcome.js'
 import SignIn from './components/SignIn.js'
 import ListFollowing from './components/followers/ListFollowing.js'
 import Profile from './components/user/Profile.js'
+import ListUsers from './components/user/ListUsers.js'
+import Header from './components/Header.js'
 
 function App() {
   return (
     <Router history={history}>
       <div>
+        <Header />
         <Switch>
+          <PrivateRoute path='/explore' component={ListUsers} />
           <PrivateRoute path='/profile/:id' component={Profile} />
-          <PrivateRoute path='/followers' component={ListFollowing} />
+          <PrivateRoute path='/following' component={ListFollowing} />
           <Route exact path='/' component={Welcome} />
           <Route path='/signup' component={SignIn} />
           <Route path='/signin' component={SignIn} />
