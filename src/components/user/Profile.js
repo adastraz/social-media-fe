@@ -8,6 +8,7 @@ const Profile = props => {
 
     useEffect(() => {
         props.fetchUser(id)
+        props.getFollowing(id)
     }, [])
 
     return (
