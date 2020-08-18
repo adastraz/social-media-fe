@@ -29,7 +29,7 @@ const Header = props => {
                 location.pathname == '/signin' ?
                 <>  
                     <p>signin</p>
-                </> : 
+                </> :
                 ''
             }
         </>
