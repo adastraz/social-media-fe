@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getFollowing } from '../../actions'
+import { Link } from 'react-router-dom'
+import { getFollowing, unfollowUser } from '../../actions'
 
 const ListFollowing = props => {
 
@@ -13,7 +14,12 @@ const ListFollowing = props => {
             <h1>Following</h1>
             <hr></hr>
             {props.following.map(follow => (
-                <h1>{follow.username}</h1>
+                <>
+                    <Link to={`/friend/${follow.id}`}>
+                        <h1>{follow.username}</h1>
+                    </Link>
+                    <button onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})}>Unfollow</button>
+                </> 
             ))}
         </>
     )
@@ -29,4 +35,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getFollowing })(ListFollowing)
+export default connect(mapStateToProps, { getFollowing, unfollowUser })(ListFollowing)

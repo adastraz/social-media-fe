@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchUsers, followUser, unfollowUser } from '../../actions'
+import { Link } from 'react-router-dom'
 
 const ListUsers = props => {
 
@@ -20,14 +21,18 @@ const ListUsers = props => {
             {props.users.map(user => (
                 <>
                     {followerNum.includes(user.id) ? 
-                    <>
-                        <h1>{user.username}</h1>
-                        <p>following</p>
-                        <button onClick={() => props.unfollowUser(props.user.id, {friend: user.id})}>Unfollow</button>
-                    </> : 
+                        <>
+                            <Link to={`/friend/${user.id}`}>
+                                <h1>{user.username}</h1>
+                                <p>following</p>
+                            </Link>
+                            <button onClick={() => props.unfollowUser(props.user.id, {friend: user.id})}>Unfollow</button>
+                        </> : 
                     props.user.id != user.id ?
                         <>
-                            <h1>{user.username}</h1>
+                            <Link to={`/user/${user.id}`}>
+                                <h1>{user.username}</h1>
+                            </Link>
                             <button onClick={() => props.followUser(props.user.id, {friend: user.id})}>Follow</button>
                         </> :
                         ''
