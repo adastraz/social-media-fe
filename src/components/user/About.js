@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { editProfile, fetchUser } from '../../actions'
 
 const About = props => {
     const [editingBio, setEditingBio] = useState(false)
@@ -31,10 +32,46 @@ const About = props => {
         })
     }
 
+    const allEditingDone = () => {
+        props.editProfile(props.user.id, editUser)
+        props.fetchUser(props.user.id)
+        setEditingBio(false)
+        setEditingEdu(false)
+        setEditUser({
+            bio: '',
+            birthday: '',
+            coverimg: '',
+            education: '',
+            location: '',
+            nickname: '',
+            phone_number: '',
+            profileimg: '',
+            relationship: '',
+            workplace: ''
+        })
+    }
+
+    const cancelEditing = () => {
+        setEditingBio(false)
+        setEditingEdu(false)
+        setEditUser({
+            bio: '',
+            birthday: '',
+            coverimg: '',
+            education: '',
+            location: '',
+            nickname: '',
+            phone_number: '',
+            profileimg: '',
+            relationship: '',
+            workplace: ''
+        })
+    }
+
     return (
         <>
             <h1>{props.user.username}</h1>
-            {props.user.bio == null && editingBio == false ? 
+            {props.user.bio == null || props.user.bio == '' && editingBio == false ? 
                 <>
                     <p onClick={() => setEditingBio(!editingBio)}>Add a bio</p>
                 </> :
@@ -48,13 +85,15 @@ const About = props => {
                         placeholder={props.user.bio}
                         onChange={handleChanges}
                     />
-                    <button onClick={() => setEditingBio(!editingBio)}>Done</button>
+                    <button onClick={allEditingDone}>Done</button>
+                    <button onClick={cancelEditing}>Cancel</button>
                 </> :
                 <>
                     <p>{props.user.bio}</p>
+                    <button onClick={() => setEditingBio(!editingBio)}>edit</button>
                 </>
             }
-            {props.user.education == null && editingEdu == false ? 
+            {props.user.education == null || props.user.education == '' && editingEdu == false ? 
                 <>
                     <p onClick={() => setEditingEdu(!editingEdu)}>Add a Education</p>
                 </> :
@@ -68,7 +107,8 @@ const About = props => {
                         placeholder={props.user.education}
                         onChange={handleChanges}
                     />
-                    <button onClick={() => setEditingEdu(!editingEdu)}>Done</button>
+                    <button onClick={allEditingDone}>Done</button>
+                    <button onClick={cancelEditing}>Cancel</button>
                 </> :
                 <>
                     <p>{props.user.education}</p>
@@ -89,4 +129,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { })(About)
+export default connect(mapStateToProps, { editProfile, fetchUser })(About)
