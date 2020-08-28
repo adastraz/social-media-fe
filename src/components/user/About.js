@@ -12,61 +12,60 @@ const About = props => {
     const [editingProf, setEditingProf] = useState(false)
     const [editingCov, setEditingCov] = useState(false)
 
-    const [editUser, setEditUser] = useState({
-        bio: '',
-        birthday: '',
-        coverimg: '',
-        education: '',
-        location: '',
-        nickname: '',
-        phone_number: '',
-        profileimg: '',
-        relationship: '',
-        workplace: ''
+    // const [editUser, setEditUser] = useState({
+    //     bio: '',
+    //     birthday: '',
+    //     coverimg: '',
+    //     education: '',
+    //     location: '',
+    //     nickname: '',
+    //     phone_number: '',
+    //     profileimg: '',
+    //     relationship: '',
+    //     workplace: ''
+    // })
+
+    const [editUserBio, setEditUserBio] = useState({
+        bio: ''
     })
 
-    const handleChanges = e => {
-        setEditUser({
-            ...editUser,
+    const handleChangesBio = e => {
+        setEditUserBio({
+            ...editUserBio,
             [e.target.name]: e.target.value
         })
     }
 
-    const allEditingDone = e => {
+    const [editUserEdu, setEditUserEdu] = useState({
+        education: ''
+    })
+
+    const handleChangesEdu = e => {
+        setEditUserEdu({
+            ...editUserEdu,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const allEditingDoneBio = e => {
         e.preventDefault()
-        props.editProfile(props.user.id, editUser)
+        props.editProfile(props.user.id, editUserBio)
         props.fetchUser(props.user.id)
         setEditingBio(false)
+        setEditUserBio({ bio: '' })
+    }
+
+    const allEditingDoneEdu = e => {
+        e.preventDefault()
+        props.editProfile(props.user.id, editUserEdu)
+        props.fetchUser(props.user.id)
         setEditingEdu(false)
-        setEditUser({
-            bio: '',
-            birthday: '',
-            coverimg: '',
-            education: '',
-            location: '',
-            nickname: '',
-            phone_number: '',
-            profileimg: '',
-            relationship: '',
-            workplace: ''
-        })
+        setEditUserEdu({ education: '' })
     }
 
     const cancelEditing = () => {
         setEditingBio(false)
         setEditingEdu(false)
-        setEditUser({
-            bio: '',
-            birthday: '',
-            coverimg: '',
-            education: '',
-            location: '',
-            nickname: '',
-            phone_number: '',
-            profileimg: '',
-            relationship: '',
-            workplace: ''
-        })
     }
 
     return (
@@ -82,11 +81,11 @@ const About = props => {
                         id='bio'
                         type='text'
                         name='bio'
-                        value={editUser.bio}
+                        value={editUserBio.bio}
                         placeholder={props.user.bio}
-                        onChange={handleChanges}
+                        onChange={handleChangesBio}
                     />
-                    <button onClick={allEditingDone}>Done</button>
+                    <button onClick={allEditingDoneBio}>Done</button>
                     <button onClick={cancelEditing}>Cancel</button>
                 </> :
                 <>
@@ -104,11 +103,11 @@ const About = props => {
                         id='education'
                         type='text'
                         name='education'
-                        value={editUser.education}
+                        value={editUserEdu.education}
                         placeholder={props.user.education}
-                        onChange={handleChanges}
+                        onChange={handleChangesEdu}
                     />
-                    <button onClick={allEditingDone}>Done</button>
+                    <button onClick={allEditingDoneEdu}>Done</button>
                     <button onClick={cancelEditing}>Cancel</button>
                 </> :
                 <>
