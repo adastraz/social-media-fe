@@ -43,7 +43,7 @@ const SignIn = props => {
                 />
                 <input 
                     id='password'
-                    type='text'
+                    type='password'
                     name='password'
                     onChange={handleChanges}
                     value={user.password}

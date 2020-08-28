@@ -104,3 +104,13 @@ export const unfollowUser = (userid, friendid) => dispatch => {
                         })
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
+
+export const editProfile = (userid, updates) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .put(`/api/users/${userid}`, updates)
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS })
+            })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
