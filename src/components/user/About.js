@@ -32,7 +32,8 @@ const About = props => {
         })
     }
 
-    const allEditingDone = () => {
+    const allEditingDone = e => {
+        e.preventDefault()
         props.editProfile(props.user.id, editUser)
         props.fetchUser(props.user.id)
         setEditingBio(false)
