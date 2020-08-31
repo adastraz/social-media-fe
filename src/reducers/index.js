@@ -5,7 +5,9 @@ import {
     CLEAR_ERROR,
     FETCHING_SUCCESS,
     FETCHING_SUCCESS_FOLLOWING,
-    FETCHING_SUCCESS_USERS
+    FETCHING_SUCCESS_USERS,
+    DELETE_POSTS,
+    FETCHING_SUCCESS_POSTS
 } from '../actions'
 
 const initialState = {
@@ -30,6 +32,11 @@ export const reducer = (state = initialState, action) => {
                 isLoading: false,
                 error: action.payload
             }
+        case CLEAR_ERROR:
+            return {
+                ...state,
+                error: null
+            }
         case FETCHING_SUCCESS_LOGIN:
             return {
                 ...state,
@@ -49,7 +56,19 @@ export const reducer = (state = initialState, action) => {
         case FETCHING_SUCCESS_USERS:
             return {
                 ...state,
-                users: action.payload
+                users: action.payload,
+                isLoading: false
+            }
+        case DELETE_POSTS:
+            return {
+                ...state,
+                posts: []
+            }
+        case FETCHING_SUCCESS_POSTS:
+            return {
+                ...state,
+                posts: action.payload,
+                isLoading: false
             }
         default: 
         return state

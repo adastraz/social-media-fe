@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
-import { fetchUser, getFollowing } from '../../actions'
+import { fetchUser, getFollowing, fetchUserPosts } from '../../actions'
 import About from './About.js'
 
 const Profile = props => {
@@ -9,6 +9,7 @@ const Profile = props => {
 
     useEffect(() => {
         props.fetchUser(id)
+        props.fetchUserPosts(id)
     }, [])
 
     return (
@@ -21,7 +22,14 @@ const Profile = props => {
             <div>
                 <About />
                 <div>
-                    {/* posts */}
+                    {props.posts.map(post => (
+                        <div>
+                            <p>{post.post}</p>
+                            <p>{post.location}</p>
+                            <p>{post.created_at}</p>
+                            <p>{post.img}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
             
@@ -40,4 +48,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUser, getFollowing })(Profile)
+export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts })(Profile)
