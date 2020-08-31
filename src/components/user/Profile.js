@@ -20,7 +20,11 @@ const Profile = props => {
             </div>
             <div>
                 <About />
+                <div>
+                    {/* posts */}
+                </div>
             </div>
+            
         </div>
     )
 }
@@ -31,7 +35,8 @@ const mapStateToProps = state => {
         error: state.error,
         user: state.user,
         following: state.following,
-        users: state.users
+        users: state.users,
+        posts: state.posts
     }
 }
 

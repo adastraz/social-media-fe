@@ -35,7 +35,8 @@ const mapStateToProps = state => {
         error: state.error,
         user: state.user,
         users: state.users,
-        following: state.following
+        following: state.following,
+        posts: state.posts
     }
 }
 

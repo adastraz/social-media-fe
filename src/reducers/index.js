@@ -13,7 +13,8 @@ const initialState = {
     error: null,
     user: {},
     following: [],
-    users: []
+    users: [],
+    posts: []
 }
 
 export const reducer = (state = initialState, action) => {
