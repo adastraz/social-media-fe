@@ -77,6 +77,7 @@ const About = props => {
                 </> :
                 editingBio == true ? 
                 <>
+                    <label htmlFor='bio'>Bio</label>
                     <input
                         id='bio'
                         type='text'
@@ -89,6 +90,7 @@ const About = props => {
                     <button onClick={cancelEditing}>Cancel</button>
                 </> :
                 <>
+                    <p>Bio</p>
                     <p>{props.user.bio}</p>
                     <button onClick={() => setEditingBio(!editingBio)}>edit</button>
                 </>
@@ -99,6 +101,7 @@ const About = props => {
                 </> :
                 editingEdu == true ? 
                 <>
+                    <label htmlFor='education'>Education</label>
                     <input
                         id='education'
                         type='text'
@@ -110,7 +113,8 @@ const About = props => {
                     <button onClick={allEditingDoneEdu}>Done</button>
                     <button onClick={cancelEditing}>Cancel</button>
                 </> :
-                <>
+                <>  
+                    <p>Education</p>
                     <p>{props.user.education}</p>
                     <button onClick={() => setEditingEdu(!editingEdu)}>edit</button>
                 </>
@@ -125,7 +129,8 @@ const mapStateToProps = state => {
         error: state.error,
         users: state.users,
         user: state.user,
-        following: state.following
+        following: state.following,
+        posts: state.posts
     }
 }
 

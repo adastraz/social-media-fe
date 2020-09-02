@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { } from '../../actions'
+import { fetchUserPosts } from '../../actions'
 import { connect } from 'react-redux'
-import { getDefaultNormalizer } from '@testing-library/react'
 import axiosWithAuth from '../../utils/axiosWithAuth'
 import { useParams, Link } from 'react-router-dom'
 
@@ -16,6 +15,8 @@ const UserProfile = props => {
                     console.log(res.data, props.user.id)
                     setCurrentUser(res.data)
                 })
+                .catch(err => console.log(err))
+        props.fetchUserPosts(id)
     }, [])
 
     return (
@@ -25,6 +26,16 @@ const UserProfile = props => {
             <Link to='/explore'>Explore</Link>
             <h1>usr profile</h1>
             <h1>{currentUser.username}</h1>
+            <div>
+                {props.posts.map(post => (
+                    <div>
+                        <p>{post.post}</p>
+                        <p>{post.location}</p>
+                        <p>{post.created_at}</p>
+                        <p>{post.img}</p>
+                    </div>
+                ))}
+            </div>
         </>
     )
 }
@@ -35,8 +46,9 @@ const mapStateToProps = state => {
         error: state.error,
         user: state.user,
         users: state.users,
-        following: state.following
+        following: state.following,
+        posts: state.posts
     }
 }
 
-export default connect(mapStateToProps, { })(UserProfile)
+export default connect(mapStateToProps, { fetchUserPosts })(UserProfile)

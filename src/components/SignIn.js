@@ -74,7 +74,8 @@ const mapStateToProps = state => {
         error: state.error,
         user: state.user,
         friends: state.friends,
-        users: state.users
+        users: state.users,
+        posts: state.posts
     }
 }
 

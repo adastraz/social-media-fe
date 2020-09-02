@@ -8,6 +8,8 @@ export const CLEAR_ERROR = 'CLEAR_ERROR'
 export const FETCHING_SUCCESS = 'FETCHING_SUCCESS'
 export const FETCHING_SUCCESS_FOLLOWING = 'FETCHING_SUCCESS_FOLLOWING'
 export const FETCHING_SUCCESS_USERS = 'FETCHING_SUCCESS_USERS'
+export const DELETE_POSTS = 'DELETE_POSTS'
+export const FETCHING_SUCCESS_POSTS = 'FETCHING_SUCCESS_POSTS'
 
 export const login = creds => dispatch => {
     dispatch ({ type: FETCHING_START })
@@ -113,4 +115,26 @@ export const editProfile = (userid, updates) => dispatch => {
                 dispatch({ type: FETCHING_SUCCESS })
             })
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
+export const fetchUserPosts = userid => dispatch => {
+    dispatch({ type: FETCHING_START })
+    dispatch({ type: DELETE_POSTS })
+    axiosWithAuth()
+        .get(`/api/posts/${userid}`)
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS_POSTS, payload: res.data})
+            })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
+export const postPost = (userid, post) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .post(`/api/posts/${userid}`, post)
+            .then(res => {
+                console.log(res)
+                dispatch({ type: FETCHING_SUCCESS })
+                window.location.reload()
+            })
 }
