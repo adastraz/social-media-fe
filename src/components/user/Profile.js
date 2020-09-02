@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
-import { fetchUser, getFollowing, fetchUserPosts } from '../../actions'
+import { fetchUser, getFollowing, fetchUserPosts, postPost } from '../../actions'
 import About from './About.js'
 
 const Profile = props => {
@@ -12,6 +12,29 @@ const Profile = props => {
         props.fetchUserPosts(id)
     }, [])
 
+    const [newPost, setNewPost] = useState({
+        location: '',
+        post: '',
+        img: ''
+    })
+
+    const [img, setImg] = useState(false)
+    const [location, setLocation] = useState(false)
+
+    const handleChanges = e => {
+        setNewPost({
+            ...newPost,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const submitForm = e => {
+        e.preventDefault()
+        props.postPost(props.user.id, {...newPost, user_id: props.user.id})
+    }
+
+    useEffect(() => console.log({...newPost, user_id: props.user.id}))
+
     return (
         <div>
             <div>
@@ -19,6 +42,46 @@ const Profile = props => {
                 <Link to='/explore'>Explore</Link>
                 <h1>Profile</h1>
             </div>
+            <form onSubmit={submitForm}>
+                <input 
+                    id='post'
+                    type='textbox'
+                    name='post'
+                    value={newPost.post}
+                    placeholder="What's on your mind?"
+                    onChange={handleChanges}
+                />
+                {!location ? 
+                    <p onClick={() => setLocation(!img)}>Location</p> :
+                    <>
+                        <input
+                            id='location'
+                            type='text'
+                            name='location'
+                            value={newPost.location}
+                            placeholder='Location'
+                            onChange={handleChanges}
+                        />
+                        <button onClick={() => setLocation(!location)}>Cancel</button>
+                    </>
+                }
+                
+                {!img ? 
+                    <p onClick={() => setImg(!img)}>Image</p> :
+                    <>
+                        <input
+                            id='img'
+                            type='text'
+                            name='img'
+                            value={newPost.img}
+                            placeholder='Image link'
+                            onChange={handleChanges}
+                        />
+                        <button onClick={() => setImg(!img)}>Cancel</button>
+                    </>
+                }
+                <button type='submit'>Post</button>
+            </form>
             <div>
                 <About />
                 <div>
@@ -48,4 +111,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts })(Profile)
+export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts, postPost })(Profile)

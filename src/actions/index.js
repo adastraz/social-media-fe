@@ -127,3 +127,14 @@ export const fetchUserPosts = userid => dispatch => {
             })
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
+
+export const postPost = (userid, post) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .post(`/api/posts/${userid}`, post)
+            .then(res => {
+                console.log(res)
+                dispatch({ type: FETCHING_SUCCESS })
+                window.location.reload()
+            })
+}
