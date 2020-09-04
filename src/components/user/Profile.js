@@ -85,19 +85,21 @@ const Profile = props => {
             <div>
                 <About />
                 <h1>Posts</h1>
-                <div>
-                    {props.posts.map(post => (
-                        <div key={post.id}>
-                            <p>{post.post}</p>
-                            <p>{post.location}</p>
-                            <p>{post.created_at}</p>
-                            <p>{post.img}</p>
-                            <button onClick={() => props.deletePost(props.user.id, {postid: post.id})}>x</button>
-                        </div>
-                    ))}
-                </div>
+                {props.posts.length > 0 ?
+                    <div>
+                        {props.posts.map(post => (
+                            <div key={post.id}>
+                                <p>{post.post}</p>
+                                <p>{post.location}</p>
+                                <p>{post.created_at}</p>
+                                <p>{post.img}</p>
+                                <button onClick={() => props.deletePost(props.user.id, {postid: post.id})}>x</button>
+                            </div>
+                        ))}
+                    </div> :
+                    <p>No posts to display</p>
+                }
             </div>
-            
         </div>
     )
 }
