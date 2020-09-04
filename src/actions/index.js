@@ -36,7 +36,8 @@ export const register = creds => dispatch => {
                         .then(res => {
                             dispatch ({ type: FETCHING_SUCCESS_LOGIN, payload: res.data.user })
                             localStorage.setItem('token', res.data.token)
-                            history.push('/followers')
+                            history.push(`/profile/${res.data.user.id}`)
+                            window.location.reload()
                         })
                         .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
             })
