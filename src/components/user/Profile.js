@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
-import { fetchUser, getFollowing, fetchUserPosts, postPost } from '../../actions'
+import { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost } from '../../actions'
 import About from './About.js'
 
 const Profile = props => {
@@ -84,13 +84,15 @@ const Profile = props => {
             </form>
             <div>
                 <About />
+                <h1>Posts</h1>
                 <div>
                     {props.posts.map(post => (
-                        <div>
+                        <div key={post.id}>
                             <p>{post.post}</p>
                             <p>{post.location}</p>
                             <p>{post.created_at}</p>
                             <p>{post.img}</p>
+                            <button onClick={() => props.deletePost(props.user.id, {postid: post.id})}>x</button>
                         </div>
                     ))}
                 </div>
@@ -111,4 +113,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts, postPost })(Profile)
+export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost })(Profile)

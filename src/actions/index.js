@@ -138,3 +138,20 @@ export const postPost = (userid, post) => dispatch => {
                 window.location.reload()
             })
 }
+
+export const deletePost = (userid, postid) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .delete(`/api/posts/${userid}`, { data: postid })
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS })
+                dispatch({ type: FETCHING_START })
+                axiosWithAuth()
+                    .get(`/api/posts/${userid}`)
+                        .then(res => {
+                            dispatch({ type: FETCHING_SUCCESS_POSTS, payload: res.data})
+                        })
+                        .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+            })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
