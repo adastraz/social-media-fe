@@ -1,0 +1,21 @@
+.signin {
+    border: none;
+    border-bottom: 3px lightgrey solid
+}
+
+.login{
+    width: 100px
+}
+
+.nav{
+    text-decoration: none;
+    color: darkslategray
+}
+
+.nav:hover{
+    color: grey
+}
+
+.signin:focus {
+    border: 2px darkgrey solid
+}

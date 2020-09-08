@@ -6,30 +6,27 @@ import { fetchUser } from '../actions'
 const Header = props => {
     const location = useLocation()
 
+    const logout = () => {
+        localStorage.removeItem('token')
+        window.location.reload()
+    }
+
     return (
         <>
-            {location.pathname == '/following' ? 
+            {location.pathname === '/following' ? 
                 <>
                     <Link to={`/profile/${props.user.id}`}>Profile</Link>
                     <Link to='/explore'>Explore</Link>
+                    <button onClick={() => logout()}>Logout</button>
                 </> :
-                location.pathname == '/explore' ?
+                location.pathname === '/explore' ?
                 <>
                     <Link to={`/profile/${props.user.id}`}>Profile</Link>
                     <Link to='/following'>Following</Link>
+                    <button onClick={() => logout()}>Logout</button>
                 </> :
-                location.pathname == '/' ? 
-                <>
-                    <p>testing</p>
-                </> :
-                location.pathname == '/signup' ?
-                <>  
-                    <p>signup</p>
-                </> :
-                location.pathname == '/signin' ?
-                <>  
-                    <p>signin</p>
-                </> :
+                location.pathname !== '/' && location.pathname !== '/signin' && location.pathname !== '/signup' ?
+                    <button onClick={() => logout()}>Logout</button> :
                 ''
             }
         </>
