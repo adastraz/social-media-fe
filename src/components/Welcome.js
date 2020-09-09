@@ -1,12 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import '../styles/welcome.css'
 
 const Welcome = () => {
     return (
-        <div>
+        <div className='welcomeDiv'>
             <h1>Social Media Clone</h1>
-            <Link to='/signin'>Sign In</Link>
-            <Link to='/signup'>Sign Up</Link>
+            <div>
+                <Link to='/signin' className='nav'>Sign In</Link>
+                <Link to='/signup' className='nav'>Sign Up</Link>
+            </div>
         </div>
     )
 }

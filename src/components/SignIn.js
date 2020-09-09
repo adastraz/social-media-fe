@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { login, register } from '../actions'
+import '../styles/signin.css'
 
 const SignIn = props => {
     const location = useLocation()
@@ -10,7 +11,6 @@ const SignIn = props => {
         password: '',
         birthday: ''
     })
-    
 
     const handleChanges = e => {
         setUser({
@@ -25,15 +25,11 @@ const SignIn = props => {
     }
 
     return (
-        <div>
-            <Link to='/'>Welcome</Link>
-            {location.pathname == '/signin' ? 
-                <Link to='/signup'>Create Account</Link> :
-                <Link to='/signin'>Login</Link>
-            }
+        <div className='signDiv'>
+            <Link to='/' className='nav home'>Home</Link>
             <form onSubmit={submitForm}>
-                <label htmlFor='username'>Username: </label>
                 <input 
+                    className='signin'
                     id='username'
                     type='text'
                     name='username'
@@ -42,6 +38,7 @@ const SignIn = props => {
                     placeholder='Username'
                 />
                 <input 
+                    className='signin'
                     id='password'
                     type='password'
                     name='password'
@@ -50,7 +47,7 @@ const SignIn = props => {
                     placeholder='Password'
                 />
                 {location.pathname == '/signin' ?
-                    <button type='submit'>Sign In</button> :
+                    <button type='submit' className='login'>Login</button> :
                     <>
                         <input 
                             id='birthday'
@@ -64,6 +61,10 @@ const SignIn = props => {
                     </> 
                 }
             </form>
+            {location.pathname == '/signin' ? 
+                <Link to='/signup' className='nav'>Create Account</Link> :
+                <Link to='/signin' className='nav'>Login</Link>
+            }
         </div>
     )
 }

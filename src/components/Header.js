@@ -1,34 +1,56 @@
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchUser } from '../actions'
+import '../styles/signin.css'
 
 const Header = props => {
     const location = useLocation()
 
+    const logout = () => {
+        localStorage.removeItem('token')
+        window.location.reload()
+    }
+
+    useEffect(() => {
+        console.log(location)
+    })
+
+    const id = useParams()
+
     return (
         <>
-            {location.pathname == '/following' ? 
+            {location.pathname === '/following' ? 
                 <>
-                    <Link to={`/profile/${props.user.id}`}>Profile</Link>
-                    <Link to='/explore'>Explore</Link>
+                    <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
+                    <Link to='/explore' className='nav'>Explore</Link>
+                    <a onClick={() => logout()} className='nav'>Logout</a>
                 </> :
-                location.pathname == '/explore' ?
+                location.pathname === '/explore' ?
                 <>
-                    <Link to={`/profile/${props.user.id}`}>Profile</Link>
-                    <Link to='/following'>Following</Link>
+                    <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
+                    <Link to='/following' className='nav'>Following</Link>
+                    <a onClick={() => logout()} className='nav'>Logout</a>
                 </> :
-                location.pathname == '/' ? 
+                location.pathname.includes('profile') ?
                 <>
-                    <p>testing</p>
+                    <Link to='/following' className='nav'>Following</Link>
+                    <Link to='/explore' className='nav'>Explore</Link>
+                    <a onClick={() => logout()} className='nav'>Logout</a>
                 </> :
-                location.pathname == '/signup' ?
+                location.pathname.includes('friend') ?
                 <>  
-                    <p>signup</p>
+                    <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
+                    <Link to='/following' className='nav'>Following</Link>
+                    <Link to='/explore' className='nav'>Explore</Link>
+                    <a onClick={() => logout()} className='nav'>Logout</a>
                 </> :
-                location.pathname == '/signin' ?
+                location.pathname.includes('user') ?
                 <>  
-                    <p>signin</p>
+                    <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
+                    <Link to='/following' className='nav'>Following</Link>
+                    <Link to='/explore' className='nav'>Explore</Link>
+                    <a onClick={() => logout()} className='nav'>Logout</a>
                 </> :
                 ''
             }

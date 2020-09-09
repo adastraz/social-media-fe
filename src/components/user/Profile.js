@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
-import { fetchUser, getFollowing, fetchUserPosts, postPost } from '../../actions'
+import { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost } from '../../actions'
 import About from './About.js'
+import '../../styles/signin.css'
+import '../../styles/post.css'
 
 const Profile = props => {
     const { id } = useParams()
@@ -38,11 +40,9 @@ const Profile = props => {
     return (
         <div>
             <div>
-                <Link to='/following'>Following</Link>
-                <Link to='/explore'>Explore</Link>
-                <h1>Profile</h1>
+                <h1>{props.user.username}</h1>
             </div>
-            <form onSubmit={submitForm}>
+            <form onSubmit={submitForm} className='postform'>
                 <input 
                     id='post'
                     type='textbox'
@@ -82,20 +82,26 @@ const Profile = props => {
                 }
                 <button type='submit'>Post</button>
             </form>
-            <div>
+            <div className='postabout'>
                 <About />
-                <div>
-                    {props.posts.map(post => (
-                        <div>
-                            <p>{post.post}</p>
-                            <p>{post.location}</p>
-                            <p>{post.created_at}</p>
-                            <p>{post.img}</p>
-                        </div>
-                    ))}
+                <div className='posts'>
+                <h1>Posts</h1>
+                {props.posts.length > 0 ?
+                    <div className='postscont'>
+                        {props.posts.map(post => (
+                            <div key={post.id}>
+                                <p>{post.post}</p>
+                                <p>{post.location}</p>
+                                <p>{post.created_at}</p>
+                                <p>{post.img}</p>
+                                <button onClick={() => props.deletePost(props.user.id, {postid: post.id})}>x</button>
+                            </div>
+                        ))}
+                    </div> :
+                    <p>No posts to display</p>
+                }
                 </div>
             </div>
-            
         </div>
     )
 }
@@ -111,4 +117,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts, postPost })(Profile)
+export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost })(Profile)
