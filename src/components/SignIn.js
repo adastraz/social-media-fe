@@ -11,7 +11,6 @@ const SignIn = props => {
         password: '',
         birthday: ''
     })
-    
 
     const handleChanges = e => {
         setUser({
@@ -26,8 +25,8 @@ const SignIn = props => {
     }
 
     return (
-        <div>
-            <Link to='/' className='nav'>Home</Link>
+        <div className='signDiv'>
+            <Link to='/' className='nav home'>Home</Link>
             <form onSubmit={submitForm}>
                 <input 
                     className='signin'
@@ -63,8 +62,8 @@ const SignIn = props => {
                 }
             </form>
             {location.pathname == '/signin' ? 
-                <Link to='/signup'>Create Account</Link> :
-                <Link to='/signin'>Login</Link>
+                <Link to='/signup' className='nav'>Create Account</Link> :
+                <Link to='/signin' className='nav'>Login</Link>
             }
         </div>
     )

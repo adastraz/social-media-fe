@@ -69,9 +69,8 @@ const About = props => {
     }
 
     return (
-        <>
+        <div className='aboutcont'>
             <h1>About</h1>
-            <h3>{props.user.username}</h3>
             {props.user.bio == null || props.user.bio == '' && editingBio == false ? 
                 <>
                     <p onClick={() => setEditingBio(!editingBio)}>Add a bio</p>
@@ -120,7 +119,7 @@ const About = props => {
                     <button onClick={() => setEditingEdu(!editingEdu)}>edit</button>
                 </>
             }
-        </>
+        </div>
     )
 }
 

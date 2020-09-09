@@ -21,10 +21,6 @@ const UserProfile = props => {
 
     return (
         <>
-            <Link to={`/profile/${props.user.id}`}>Profile</Link>
-            <Link to='/following'>Following</Link>
-            <Link to='/explore'>Explore</Link>
-            <h1>usr profile</h1>
             <h1>{currentUser.username}</h1>
             <div>
                 {props.posts.map(post => (

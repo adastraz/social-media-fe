@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 import { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost } from '../../actions'
 import About from './About.js'
+import '../../styles/signin.css'
+import '../../styles/post.css'
 
 const Profile = props => {
     const { id } = useParams()
@@ -38,11 +40,9 @@ const Profile = props => {
     return (
         <div>
             <div>
-                <Link to='/following'>Following</Link>
-                <Link to='/explore'>Explore</Link>
-                <h1>Profile</h1>
+                <h1>{props.user.username}</h1>
             </div>
-            <form onSubmit={submitForm}>
+            <form onSubmit={submitForm} className='postform'>
                 <input 
                     id='post'
                     type='textbox'
@@ -82,11 +82,12 @@ const Profile = props => {
                 }
                 <button type='submit'>Post</button>
             </form>
-            <div>
+            <div className='postabout'>
                 <About />
+                <div className='posts'>
                 <h1>Posts</h1>
                 {props.posts.length > 0 ?
-                    <div>
+                    <div className='postscont'>
                         {props.posts.map(post => (
                             <div key={post.id}>
                                 <p>{post.post}</p>
@@ -99,6 +100,7 @@ const Profile = props => {
                     </div> :
                     <p>No posts to display</p>
                 }
+                </div>
             </div>
         </div>
     )

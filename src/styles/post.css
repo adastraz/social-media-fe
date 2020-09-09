@@ -1,0 +1,28 @@
+.postform{
+    border: 2px solid darkslategray;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    padding: 1.25rem;
+    border-radius: 2rem
+}
+
+.postabout{
+    border: 2px solid darkslategray;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    margin: 2rem auto;
+    padding: 1.25rem;
+    border-radius: 2rem
+}
+
+.posts{
+    width: 75%;
+}
