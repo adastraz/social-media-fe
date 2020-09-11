@@ -5,6 +5,7 @@ import { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost } from '.
 import About from './About.js'
 import '../../styles/signin.css'
 import '../../styles/post.css'
+import axiosWithAuth from '../../utils/axiosWithAuth'
 
 const Profile = props => {
     const { id } = useParams()
@@ -35,7 +36,19 @@ const Profile = props => {
         props.postPost(props.user.id, {...newPost, user_id: props.user.id})
     }
 
-    useEffect(() => console.log({...newPost, user_id: props.user.id}))
+    const postLikes = []
+
+    props.posts.forEach(post => {
+        axiosWithAuth()
+            .get(`/api/likes/${post.id}/post`)
+                .then(res => {
+                    res.data.forEach(addLike => {
+                        postLikes.push(addLike)
+                    })
+                })
+    })
+
+    // useEffect(() => console.log(postLikes))
 
     return (
         <div>
@@ -95,6 +108,12 @@ const Profile = props => {
                                 <p>{post.created_at}</p>
                                 <p>{post.img}</p>
                                 <button onClick={() => props.deletePost(props.user.id, {postid: post.id})}>x</button>
+                                {/* {postLikes.forEach(likes => (
+                                    likes.post_id == post.id ?
+                                        <p>{likes.like_username}</p> :
+                                        <p>None</p>
+                                    ))
+                                } */}
                             </div>
                         ))}
                     </div> :
