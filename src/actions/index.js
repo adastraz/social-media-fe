@@ -10,6 +10,7 @@ export const FETCHING_SUCCESS_FOLLOWING = 'FETCHING_SUCCESS_FOLLOWING'
 export const FETCHING_SUCCESS_USERS = 'FETCHING_SUCCESS_USERS'
 export const DELETE_POSTS = 'DELETE_POSTS'
 export const FETCHING_SUCCESS_POSTS = 'FETCHING_SUCCESS_POSTS'
+export const FETCHING_SUCCESS_USERLIKES = 'FETCHING_SUCCESS_USERLIKES'
 
 export const login = creds => dispatch => {
     dispatch ({ type: FETCHING_START })
@@ -151,6 +152,52 @@ export const deletePost = (userid, postid) => dispatch => {
                     .get(`/api/posts/${userid}`)
                         .then(res => {
                             dispatch({ type: FETCHING_SUCCESS_POSTS, payload: res.data})
+                        })
+                        .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+            })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
+export const fetchUserLikes = userid => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .get(`/api/likes/${userid}/user`)
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS_USERLIKES, payload: res.data})
+            })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
+export const addLike = (user, post_id) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .post(`/api/posts/${post_id}/like`, {like_username: user.username})
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS })
+                dispatch({ FETCHING_START })
+                axiosWithAuth()
+                    .get(`/api/likes/${user.id}/user`)
+                        .then(res => {
+                            dispatch({ type: FETCHING_SUCCESS_USERLIKES, payload: res.data})
+                            window.location.reload()
+                        })
+                        .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+            })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
+export const removeLike = (user, post_id) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .delete(`/api/posts/${post_id}/like`, {data: {like_username: user.username}})
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS })
+                dispatch({ FETCHING_START })
+                axiosWithAuth()
+                    .get(`/api/likes/${user.id}/user`)
+                        .then(res => {
+                            dispatch({ type: FETCHING_SUCCESS_USERLIKES, payload: res.data})
+                            window.location.reload()
                         })
                         .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
             })

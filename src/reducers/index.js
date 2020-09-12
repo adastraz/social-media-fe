@@ -7,7 +7,8 @@ import {
     FETCHING_SUCCESS_FOLLOWING,
     FETCHING_SUCCESS_USERS,
     DELETE_POSTS,
-    FETCHING_SUCCESS_POSTS
+    FETCHING_SUCCESS_POSTS,
+    FETCHING_SUCCESS_USERLIKES
 } from '../actions'
 
 const initialState = {
@@ -16,7 +17,8 @@ const initialState = {
     user: {},
     following: [],
     users: [],
-    posts: []
+    posts: [],
+    userLikes: []
 }
 
 export const reducer = (state = initialState, action) => {
@@ -69,6 +71,12 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 posts: action.payload,
                 isLoading: false
+            }
+        case FETCHING_SUCCESS_USERLIKES:
+            return {
+                ...state,
+                isLoading: false,
+                userLikes: action.payload
             }
         default: 
         return state
