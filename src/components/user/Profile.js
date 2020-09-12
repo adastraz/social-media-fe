@@ -1,18 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
-import { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost } from '../../actions'
+import { fetchUser, 
+    getFollowing, 
+    fetchUserPosts, 
+    postPost, 
+    deletePost, 
+    fetchUserLikes,
+    addLike,
+    removeLike
+} from '../../actions'
 import About from './About.js'
 import '../../styles/signin.css'
 import '../../styles/post.css'
-import axiosWithAuth from '../../utils/axiosWithAuth'
+import '../../styles/profile.css'
 
 const Profile = props => {
     const { id } = useParams()
+    const likedPostId = []
 
     useEffect(() => {
         props.fetchUser(id)
         props.fetchUserPosts(id)
+        props.fetchUserLikes(id)
     }, [])
 
     const [newPost, setNewPost] = useState({
@@ -31,24 +41,24 @@ const Profile = props => {
         })
     }
 
+    props.userLikes.forEach(likedposts => {
+        likedPostId.push(likedposts.post_id)
+    })
+
     const submitForm = e => {
         e.preventDefault()
         props.postPost(props.user.id, {...newPost, user_id: props.user.id})
     }
 
-    const postLikes = []
+    const addLikeHelper = post_id => {
+        props.addLike(props.user, post_id)
+        window.location.reload()
+    }
 
-    props.posts.forEach(post => {
-        axiosWithAuth()
-            .get(`/api/likes/${post.id}/post`)
-                .then(res => {
-                    res.data.forEach(addLike => {
-                        postLikes.push(addLike)
-                    })
-                })
-    })
-
-    // useEffect(() => console.log(postLikes))
+    const removeLikeHelper = post_id => {
+        props.removeLike(props.user, post_id)
+        window.location.reload()
+    }
 
     return (
         <div>
@@ -107,13 +117,21 @@ const Profile = props => {
                                 <p>{post.location}</p>
                                 <p>{post.created_at}</p>
                                 <p>{post.img}</p>
+                                <p>Likes: {post.like_number}</p>
                                 <button onClick={() => props.deletePost(props.user.id, {postid: post.id})}>x</button>
-                                {/* {postLikes.forEach(likes => (
-                                    likes.post_id == post.id ?
-                                        <p>{likes.like_username}</p> :
-                                        <p>None</p>
-                                    ))
-                                } */}
+                                {/* {props.userLikes.forEach(likedposts => {
+                                    if (likedposts.like_username == props.user.username && post.id == likedposts.post_id) {
+                                        console.log(likedposts, post.id)
+                                        return <p>{likedposts.username}</p>
+                                    } else {
+                                        console.log(post.id)
+                                        return <p>none</p>
+                                    }
+                                })} */}
+                                {!likedPostId.includes(post.id) ? 
+                                    <a className='like' onClick={() => addLikeHelper(post.id)}>Like</a> :
+                                    <a className='unlike' onClick={() => removeLikeHelper(post.id)}>Unlike</a>
+                                }
                             </div>
                         ))}
                     </div> :
@@ -132,8 +150,9 @@ const mapStateToProps = state => {
         user: state.user,
         following: state.following,
         users: state.users,
-        posts: state.posts
+        posts: state.posts,
+        userLikes: state.userLikes
     }
 }
 
-export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost })(Profile)
+export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost, fetchUserLikes, addLike, removeLike })(Profile)
