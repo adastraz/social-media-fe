@@ -48,3 +48,8 @@
     flex-direction: column;
     margin-top: 20%
 }
+
+.red{
+    color: red;
+    text-align: center
+}
