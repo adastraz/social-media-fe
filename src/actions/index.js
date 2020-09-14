@@ -179,7 +179,7 @@ export const addLike = (user, post_id) => dispatch => {
                     .get(`/api/likes/${user.id}/user`)
                         .then(res => {
                             dispatch({ type: FETCHING_SUCCESS_USERLIKES, payload: res.data})
-                            window.location.reload()
+                            // window.location.reload()
                         })
                         .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
             })
@@ -197,7 +197,7 @@ export const removeLike = (user, post_id) => dispatch => {
                     .get(`/api/likes/${user.id}/user`)
                         .then(res => {
                             dispatch({ type: FETCHING_SUCCESS_USERLIKES, payload: res.data})
-                            window.location.reload()
+                            // window.location.reload()
                         })
                         .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
             })

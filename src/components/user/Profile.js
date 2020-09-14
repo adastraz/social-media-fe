@@ -32,7 +32,7 @@ const Profile = props => {
     })
 
     const [img, setImg] = useState(false)
-    const [location, setLocation] = useState(false)
+    const [location, setLocation] = useState(false) 
 
     const handleChanges = e => {
         setNewPost({
@@ -48,6 +48,16 @@ const Profile = props => {
     const submitForm = e => {
         e.preventDefault()
         props.postPost(props.user.id, {...newPost, user_id: props.user.id})
+    }
+
+    const addLikeHelper = post_id => {
+        props.addLike(props.user, post_id)
+        window.location.reload()
+    }
+
+    const removeLikeHelper = post_id => {
+        props.removeLike(props.user, post_id)
+        window.location.reload()
     }
 
     return (
@@ -110,8 +120,8 @@ const Profile = props => {
                                 <p>Likes: {post.like_number}</p>
                                 <button onClick={() => props.deletePost(props.user.id, {postid: post.id})}>x</button>
                                 {!likedPostId.includes(post.id) ? 
-                                    <a className='like' onClick={() => props.addLike(props.user, post.id)}>Like</a> :
-                                    <a className='unlike' onClick={() => props.removeLike(props.user, post.id)}>Unlike</a>
+                                    <a className='like' onClick={() => addLikeHelper(post.id)}>Like</a> :
+                                    <a className='unlike' onClick={() => removeLikeHelper(post.id)}>Unlike</a>
                                 }
                             </div>
                         ))}
