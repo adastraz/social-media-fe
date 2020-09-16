@@ -22,7 +22,7 @@ export const login = creds => dispatch => {
                 history.push(`/profile/${res.data.user.id}`)
                 window.location.reload()
             })
-            .catch(err => console.log(err))
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
 
 export const register = creds => dispatch => {
@@ -174,12 +174,12 @@ export const addLike = (user, post_id) => dispatch => {
         .post(`/api/posts/${post_id}/like`, {like_username: user.username})
             .then(res => {
                 dispatch({ type: FETCHING_SUCCESS })
-                dispatch({ FETCHING_START })
+                dispatch({ type: FETCHING_START })
                 axiosWithAuth()
                     .get(`/api/likes/${user.id}/user`)
                         .then(res => {
                             dispatch({ type: FETCHING_SUCCESS_USERLIKES, payload: res.data})
-                            window.location.reload()
+                            // window.location.reload()
                         })
                         .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
             })
@@ -192,14 +192,18 @@ export const removeLike = (user, post_id) => dispatch => {
         .delete(`/api/posts/${post_id}/like`, {data: {like_username: user.username}})
             .then(res => {
                 dispatch({ type: FETCHING_SUCCESS })
-                dispatch({ FETCHING_START })
+                dispatch({ type: FETCHING_START })
                 axiosWithAuth()
                     .get(`/api/likes/${user.id}/user`)
                         .then(res => {
                             dispatch({ type: FETCHING_SUCCESS_USERLIKES, payload: res.data})
-                            window.location.reload()
+                            // window.location.reload()
                         })
                         .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
             })
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
+export const clearError = () => dispatch => {
+    dispatch({ type: CLEAR_ERROR })
 }

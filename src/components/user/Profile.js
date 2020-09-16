@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { fetchUser, 
     getFollowing, 
     fetchUserPosts, 
@@ -32,7 +32,7 @@ const Profile = props => {
     })
 
     const [img, setImg] = useState(false)
-    const [location, setLocation] = useState(false)
+    const [location, setLocation] = useState(false) 
 
     const handleChanges = e => {
         setNewPost({
@@ -119,15 +119,6 @@ const Profile = props => {
                                 <p>{post.img}</p>
                                 <p>Likes: {post.like_number}</p>
                                 <button onClick={() => props.deletePost(props.user.id, {postid: post.id})}>x</button>
-                                {/* {props.userLikes.forEach(likedposts => {
-                                    if (likedposts.like_username == props.user.username && post.id == likedposts.post_id) {
-                                        console.log(likedposts, post.id)
-                                        return <p>{likedposts.username}</p>
-                                    } else {
-                                        console.log(post.id)
-                                        return <p>none</p>
-                                    }
-                                })} */}
                                 {!likedPostId.includes(post.id) ? 
                                     <a className='like' onClick={() => addLikeHelper(post.id)}>Like</a> :
                                     <a className='unlike' onClick={() => removeLikeHelper(post.id)}>Unlike</a>

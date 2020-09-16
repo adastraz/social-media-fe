@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { login, register } from '../actions'
+import { login, register, clearError } from '../actions'
 import '../styles/signin.css'
 
 const SignIn = props => {
@@ -60,10 +60,21 @@ const SignIn = props => {
                         <button type='submit'>Sign Up</button>
                     </> 
                 }
+                {props.error == null ? 
+                    '' :
+                    <ul>
+                        <li className='red'>Username must be unique</li>
+                        <li className='red'>Password must be 8+ characters</li>
+                        <li className='red'>Password must contain a special character</li>
+                        <li className='red'>Password must contain a letter</li>
+                        <li className='red'>Password must contain a number</li>
+                        <button onClick={() => props.clearError()}>Ok</button>
+                    </ul>
+                }
             </form>
             {location.pathname == '/signin' ? 
                 <Link to='/signup' className='nav'>Create Account</Link> :
-                <Link to='/signin' className='nav'>Login</Link>
+                <Link to='/signin' className='nav'>Already have an Account</Link>
             }
         </div>
     )
@@ -80,4 +91,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { login, register })(SignIn)
+export default connect(mapStateToProps, { login, register, clearError })(SignIn)
