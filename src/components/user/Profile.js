@@ -117,7 +117,8 @@ const Profile = props => {
                                 <p>{post.location}</p>
                                 <p>{post.created_at}</p>
                                 <p>{post.img}</p>
-                                <p onClick={() => props.history.push(`/post/${post.id}`, likedPostId)}>Load comments...</p>
+                                {/* comments */}
+                                <p onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>Load comments... [{post.comment_number}]</p>
                                 <p>Likes: {post.like_number}</p>
                                 <button onClick={() => props.deletePost(props.user.id, {postid: post.id})}>x</button>
                                 {!likedPostId.includes(post.id) ? 

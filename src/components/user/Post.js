@@ -1,15 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import PrivateRoute from '../PrivateRoute'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { 
+    addLike, 
+    removeLike,
+    fetchUser,
+    fetchUserLikes,
+    fetchUserPosts,
+    addComment
+} from '../../actions'
 import axiosWithAuth from '../../utils/axiosWithAuth.js'
-import Header from '../Header.js'
 
 const Post = props => {
     const { id } = useParams()
 
     const [current, setCurrent] = useState({})
     const [comments, setComments] = useState([])
+    const likedPostId = []
+    const [newComment, setNewComment] = useState({
+        comment: ''
+    })
+
+    useEffect(() => {
+        props.fetchUser(props.location.state)
+        props.fetchUserPosts(props.location.state)
+        props.fetchUserLikes(props.location.state)
+    }, [])
 
     useEffect(() => {
         axiosWithAuth()
@@ -22,6 +38,25 @@ const Post = props => {
                 })
         console.log('array of liked posts', props.location.state)
     }, []) 
+
+    // useEffect(() => console.log({ comment: newComment.comment, comment_username: props.user.username }, current.id))
+
+    props.userLikes.forEach(likedposts => {
+        likedPostId.push(likedposts.post_id)
+    })
+
+    const handleChanges = e => {
+        setNewComment({
+            ...newComment,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const submitComment = e => {
+        e.preventDefault()
+        // post comment action (newComment, )
+        props.addComment({ comment: newComment.comment, comment_username: props.user.username }, current.id)
+    }
 
     const addLikeHelper = post_id => {
         props.addLike(props.user, post_id)
@@ -42,12 +77,26 @@ const Post = props => {
             
             <p>Likes: {current.like_number}</p>
             <button onClick={() => props.deletePost(props.user.id, {postid: current.id})}>x</button>
-            {!props.location.state.includes(current.id) ? 
+            {!likedPostId.includes(current.id) ? 
                 <a className='like' onClick={() => addLikeHelper(current.id)}>Like</a> :
                 <a className='unlike' onClick={() => removeLikeHelper(current.id)}>Unlike</a>
             }
+            <form onSubmit={submitComment}>
+                <input
+                    id='comment'
+                    type='textbox'
+                    name='comment'
+                    value={newComment.comment}
+                    placeholder='Comment on post'
+                    onChange={handleChanges}
+                />
+                <button type='submit'>Post Comment</button>
+            </form>
             {comments.map(comment => (
-                <p>{comment.comment}</p>
+                <>
+                    <h5>{comment.comment_username}</h5>
+                    <p>{comment.comment}</p>
+                </>
             ))}
         </div>
     )
@@ -64,4 +113,4 @@ const mapStateToProps = state => {
         userLikes: state.userLikes
     }
 }
-export default connect(mapStateToProps, {})(Post)
+export default connect(mapStateToProps, { addLike, removeLike, fetchUser, fetchUserLikes, fetchUserPosts, addComment })(Post)
