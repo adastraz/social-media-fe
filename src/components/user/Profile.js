@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { fetchUser, 
     getFollowing, 
     fetchUserPosts, 
@@ -117,6 +117,7 @@ const Profile = props => {
                                 <p>{post.location}</p>
                                 <p>{post.created_at}</p>
                                 <p>{post.img}</p>
+                                <p onClick={() => props.history.push(`/post/${post.id}`, likedPostId)}>Load comments...</p>
                                 <p>Likes: {post.like_number}</p>
                                 <button onClick={() => props.deletePost(props.user.id, {postid: post.id})}>x</button>
                                 {!likedPostId.includes(post.id) ? 
