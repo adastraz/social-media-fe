@@ -9,6 +9,7 @@ import Profile from './components/user/Profile.js'
 import ListUsers from './components/user/ListUsers.js'
 import Header from './components/Header.js'
 import UserProfile from './components/user/UserProfile.js'
+import Post from './components/user/Post.js'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <PrivateRoute path='/user/:id' component={UserProfile} />
           <PrivateRoute path='/explore' component={ListUsers} />
           <PrivateRoute path='/profile/:id' component={Profile} />
+          <PrivateRoute path='/post/:id' component={Post} />
           <PrivateRoute path='/following' component={ListFollowing} />
           <Route exact path='/' component={Welcome} />
           <Route path='/signup' component={SignIn} />
