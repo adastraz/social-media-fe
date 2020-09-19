@@ -1,12 +1,39 @@
 .sidebarcont{
-    width: 20%;
+    width: 13%;
+    /* height: 200px; */
+    right: 0;
+    margin-right: 2%;
+    border-radius: 2rem;
+    max-height: 300px;
+    overflow:auto
+}
+
+.hideside {
+    visibility: hidden;
+}
+
+.closer{
+    position:fixed;
+    right: .5rem;
+}
+
+.fixed{
+    position: fixed;
+    padding: 2.5%;
+    border: 2px solid red
+}
+
+.scrolly {
+    position: absolute;
+    padding: 2.5%;
+    border: 2px solid green
 }
 
 .sidebarflex{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center
+    justify-content: center;
 }
 
 .userssidebar {
@@ -15,6 +42,11 @@
     align-items: center;
 }
 
+.sidebarbuttons{
+    display:flex;
+    justify-content: space-around
+}
+
 .sidebar{
-    margin: .25rem 1.25rem
+    margin: .35rem 1.25rem;
 }
