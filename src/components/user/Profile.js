@@ -11,7 +11,7 @@ import { fetchUser,
     removeLike
 } from '../../actions'
 import About from './About.js'
-import Sidebar from '../Sidebar.js'
+import SidebarFollowing from '../SidebarFollowing.js'
 import '../../styles/signin.css'
 import '../../styles/post.css'
 import '../../styles/profile.css'
@@ -64,7 +64,7 @@ const Profile = props => {
 
     return (
         <div className='sidebar'>
-            <Sidebar />
+            <SidebarFollowing history={props.history}/>
             <div className='profilecontainer'>
                 <h1>{props.user.username}</h1>
                 <form onSubmit={submitForm} className='postform'>

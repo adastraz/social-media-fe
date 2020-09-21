@@ -4,7 +4,7 @@
     right: 0;
     margin-right: 2%;
     border-radius: 2rem;
-    max-height: 300px;
+    max-height: 250px;
     overflow:auto
 }
 
@@ -19,13 +19,13 @@
 
 .fixed{
     position: fixed;
-    padding: 2.5%;
+    padding: .5% 2%;
     border: 2px solid red
 }
 
 .scrolly {
     position: absolute;
-    padding: 2.5%;
+    padding: .5% 2%;
     border: 2px solid green
 }
 
@@ -42,6 +42,12 @@
     align-items: center;
 }
 
+.postssidebar{
+    display: flex;
+    flex-direction: column;
+    /* margin: -1rem */
+}
+
 .sidebarbuttons{
     display:flex;
     justify-content: space-around
@@ -49,4 +55,22 @@
 
 .sidebar{
     margin: .35rem 1.25rem;
+}
+
+.fullbar{
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+}
+
+.postside{
+    margin-top: 300px
+}
+
+.pin{
+    margin-top: 30px;
+}
+
+.view{
+    margin-top: 60px;
 }

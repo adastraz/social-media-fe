@@ -3,14 +3,15 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import '../styles/sidebar.css'
 import { unfollowUser } from '../actions'
-// import ListFollowing from './followers/ListFollowing.js'
+import SidebarPosts from './SidebarPosts.js'
 
-const Sidebar = props => {
+const SidebarFollowing = props => {
     const [fixed, setFixed] = useState(true) 
     const [maparoo, setMaparoo] = useState(true)
     const [hide, setHide] = useState(false)
     const [search, setSearch] = useState('')
     const [usersFollowing, setUsersFollowing] = useState([])
+    const [followers, setFollowers] = useState(false)
 
     useEffect(() => {
         setUsersFollowing(props.following.filter(user => {
@@ -18,26 +19,32 @@ const Sidebar = props => {
         }))
     }, [search])
 
-    useEffect(() => console.log(hide))
-
     return (
-        <>
+        <div className='fullbar'>
             <button className='closer' onClick={() => setHide(!hide)}>-</button>
+            <button className='closer pin' onClick={() => setFixed(!fixed)}>P</button>
+            <button onClick={() => {
+                        setMaparoo(!maparoo)
+                        setSearch('')
+                    }} className='closer view'>V</button>
             <div className={
                 hide  ?
                     'fixed sidebarcont hideside' :
                 fixed ? 
                     'fixed sidebarcont' : 
                     'scrolly sidebarcont'
-            }>
-                <h1>Following</h1>
-                <div className='sidebarbuttons'>   
+            }>  
+                {followers ?
+                    <h2 onClick={() => setFollowers(false)}>Followers</h2> :
+                    <h2 onClick={() => setFollowers(true)}>Following</h2>
+                }
+                {/* <div className='sidebarbuttons'>   
                     <a onClick={() => {
                         setMaparoo(!maparoo)
                         setSearch('')
                     }} className={fixed ? 'like' : 'unlike'}>View</a>
                     <a onClick={() => setFixed(!fixed)} className={fixed ? 'like' : 'unlike'}>Pin</a>
-                </div>
+                </div> */}
                 <hr></hr>
                 {maparoo ? 
                     <input
@@ -74,7 +81,8 @@ const Sidebar = props => {
                     }
                 </div>
             </div>
-        </>
+            <SidebarPosts followingFixed={fixed} history={props.history}/>
+        </div>
     )
 }
 
@@ -90,4 +98,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { unfollowUser })(Sidebar)
+export default connect(mapStateToProps, { unfollowUser })(SidebarFollowing)
