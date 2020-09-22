@@ -103,6 +103,7 @@ export const unfollowUser = (userid, friendid) => dispatch => {
                     .get(`/api/friends/${userid}`)
                         .then(res => {
                             dispatch({ type: FETCHING_SUCCESS_FOLLOWING, payload: res.data })
+                            window.location.reload()
                         })
                         .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
                         })

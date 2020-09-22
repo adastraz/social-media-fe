@@ -22,6 +22,7 @@ const Post = props => {
     })
 
     useEffect(() => {
+        console.log(props.user, props.location.state)
         props.fetchUser(props.location.state)
         props.fetchUserPosts(props.location.state)
         props.fetchUserLikes(props.location.state)

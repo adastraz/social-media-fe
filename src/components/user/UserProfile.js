@@ -22,7 +22,10 @@ const UserProfile = props => {
         props.fetchUserPosts(id)
     }, [props.userLikes])
 
-    useEffect(() => {props.fetchUser(props.user.id)}, [])
+    useEffect(() => {
+        props.fetchUser(props.user.id)
+        console.log(props.user)
+    }, [])
 
     const [newPost, setNewPost] = useState({
         location: '',
@@ -110,6 +113,7 @@ const UserProfile = props => {
                                     <p>{post.location}</p>
                                     <p>{post.created_at}</p>
                                     <p>{post.img}</p>
+                                    <p onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>Load comments... [{post.comment_number}]</p>
                                     <p>Likes: {post.like_number}</p>
                                     {!likedPostId.includes(post.id) ? 
                                         <a className='like' onClick={() => props.addLike1(props.user, post.id)}>Like</a> :
