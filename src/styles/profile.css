@@ -49,3 +49,14 @@
     visibility: visible;
     transform: scaleX(1);
 }
+
+.profilecontainer{
+    width: 75%;
+    margin: 0 15% 0 0 
+}
+
+.sidebar{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+}

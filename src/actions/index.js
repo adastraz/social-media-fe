@@ -204,6 +204,17 @@ export const removeLike = (user, post_id) => dispatch => {
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
 
+export const addComment = (comment, post_id) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .post(`/api/posts/${post_id}/comment`, comment)
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS })
+                window.location.reload()
+            })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
 export const clearError = () => dispatch => {
     dispatch({ type: CLEAR_ERROR })
 }

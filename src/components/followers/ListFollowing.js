@@ -16,9 +16,9 @@ const ListFollowing = props => {
             {props.following.map(follow => (
                 <>
                     <Link to={`/friend/${follow.id}`}>
-                        <h1>{follow.username}</h1>
+                        <h5>{follow.username}</h5>
                     </Link>
-                    <button onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})}>Unfollow</button>
+                    <p onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})}>Unfollow</p>
                 </> 
             ))}
         </>
