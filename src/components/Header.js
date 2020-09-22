@@ -16,7 +16,7 @@ const Header = props => {
         console.log(location)
     })
 
-    const id = useParams()
+    const { id } = useParams()
 
     return (
         <>
