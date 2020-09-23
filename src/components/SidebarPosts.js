@@ -97,6 +97,7 @@ const SidebarPosts = props => {
                                         </Link>
                                     }
                                     <p onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>{post.post}</p>
+                                    <h7>{post.created_at}</h7>
                                     {/* <button className='sidebar'onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})}>unfollow</button> */}
                                 </div>
                             </div> 
@@ -108,6 +109,7 @@ const SidebarPosts = props => {
                                     <Link to={`/friend/${post.user_id}`}>
                                         <h4 className='sidebar'>{post.username}</h4>
                                     </Link>
+                                    <a>{post.created_at}</a>
                                     <a onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>{post.post}</a>
                                     {/* <button className='sidebar'onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})}>unfollow</button> */}
                                 </div>

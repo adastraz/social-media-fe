@@ -16,7 +16,7 @@ const Header = props => {
         console.log(location)
     })
 
-    const id = useParams()
+    const { id } = useParams()
 
     return (
         <>
@@ -29,33 +29,28 @@ const Header = props => {
                 location.pathname === '/explore' ?
                 <>
                     <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
-                    <Link to='/following' className='nav'>Following</Link>
                     <a onClick={() => logout()} className='nav'>Logout</a>
                 </> :
                 location.pathname.includes('profile') ?
                 <>
-                    <Link to='/following' className='nav'>Following</Link>
                     <Link to='/explore' className='nav'>Explore</Link>
                     <a onClick={() => logout()} className='nav'>Logout</a>
                 </> :
                 location.pathname.includes('friend') ?
                 <>  
                     <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
-                    <Link to='/following' className='nav'>Following</Link>
                     <Link to='/explore' className='nav'>Explore</Link>
                     <a onClick={() => logout()} className='nav'>Logout</a>
                 </> :
                 location.pathname.includes('user') ?
                 <>  
                     <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
-                    <Link to='/following' className='nav'>Following</Link>
                     <Link to='/explore' className='nav'>Explore</Link>
                     <a onClick={() => logout()} className='nav'>Logout</a>
                 </> :
                 location.pathname.includes('post') ?
                 <>  
                     <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
-                    <Link to='/following' className='nav'>Following</Link>
                     <Link to='/explore' className='nav'>Explore</Link>
                     <a onClick={() => logout()} className='nav'>Logout</a>
                 </> :

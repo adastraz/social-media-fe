@@ -54,12 +54,10 @@ const Profile = props => {
 
     const addLikeHelper = post_id => {
         props.addLike(props.user, post_id)
-        window.location.reload()
     }
 
     const removeLikeHelper = post_id => {
         props.removeLike(props.user, post_id)
-        window.location.reload()
     }
 
     return (
@@ -114,7 +112,7 @@ const Profile = props => {
                     {props.posts.length > 0 ?
                         <div className='postscont'>
                             {props.posts.map(post => (
-                                <div key={post.id}>
+                                <div key={post.id} className='borderPosts'>
                                     <p>{post.post}</p>
                                     <p>{post.location}</p>
                                     <p>{post.created_at}</p>
