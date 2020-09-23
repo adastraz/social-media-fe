@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { fetchUserPosts, addLike1, removeLike1, postPost, fetchUser } from '../../actions'
+import { fetchUserPosts, addLike1, removeLike1, postPost, fetchUser, followUser, unfollowUser } from '../../actions'
 import { connect } from 'react-redux'
 import axiosWithAuth from '../../utils/axiosWithAuth'
 import { useLocation, useParams, Link } from 'react-router-dom'
@@ -11,6 +11,7 @@ const UserProfile = props => {
     const [currentUser, setCurrentUser] = useState({})
     const location = useLocation()
     const likedPostId = []
+    const followingId = []
 
     useEffect(() => {
         axiosWithAuth()
@@ -59,6 +60,10 @@ const UserProfile = props => {
         likedPostId.push(likedposts.post_id)
     })
 
+    props.following.forEach(follow => {
+        followingId.push(follow.id)
+    })  
+
     console.log('history', props.history)
 
     return (
@@ -67,6 +72,10 @@ const UserProfile = props => {
             <SidebarFollowing history={props.history}/>
             <div className='profilecontainer'>
                 <h1>{currentUser.username}</h1>
+                {followingId.includes(currentUser.id) ? 
+                    <button onClick={() => props.unfollowUser(props.user.id, {friend: currentUser.id})}>Unfollow</button> :
+                    <button onClick={() => props.followUser(props.user.id, {friend: currentUser.id})}>Follow</button>
+                }
                 <form onSubmit={submitForm} className='postform'>
                     <input 
                         id='post'
@@ -148,4 +157,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUserPosts, addLike1, removeLike1, postPost, fetchUser })(UserProfile)
+export default connect(mapStateToProps, { fetchUserPosts, addLike1, removeLike1, postPost, fetchUser, followUser, unfollowUser })(UserProfile)
