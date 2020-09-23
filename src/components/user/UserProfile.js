@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { fetchUserPosts, addLike1, removeLike1, postPost, fetchUser } from '../../actions'
 import { connect } from 'react-redux'
 import axiosWithAuth from '../../utils/axiosWithAuth'
-import { useParams, Link } from 'react-router-dom'
+import { useLocation, useParams, Link } from 'react-router-dom'
 import SidebarFollowing from '../SidebarFollowing.js'
 import OtherAbout from './OtherAbout'
 
 const UserProfile = props => {
     const { id } = useParams()
     const [currentUser, setCurrentUser] = useState({})
+    const location = useLocation()
     const likedPostId = []
 
     useEffect(() => {
@@ -20,12 +21,18 @@ const UserProfile = props => {
                 })
                 .catch(err => console.log(err))
         props.fetchUserPosts(id)
-    }, [props.userLikes])
+    }, [props.userLikes, location])
 
     useEffect(() => {
         props.fetchUser(props.user.id)
         console.log(props.user)
     }, [])
+
+    // useEffect(() => {
+    //     if (!location.pathname.includes(currentUser.id)) {
+    //         window.location.reload()
+    //     }
+    // }, [location])
 
     const [newPost, setNewPost] = useState({
         location: '',
@@ -34,7 +41,7 @@ const UserProfile = props => {
     })
 
     const [img, setImg] = useState(false)
-    const [location, setLocation] = useState(false) 
+    const [plocation, psetLocation] = useState(false) 
 
     const handleChanges = e => {
         setNewPost({
@@ -69,8 +76,8 @@ const UserProfile = props => {
                         placeholder="What's on your mind?"
                         onChange={handleChanges}
                     />
-                    {!location ? 
-                        <p onClick={() => setLocation(!img)}>Location</p> :
+                    {!plocation ? 
+                        <p onClick={() => psetLocation(!img)}>Location</p> :
                         <>
                             <input
                                 id='location'
@@ -80,7 +87,7 @@ const UserProfile = props => {
                                 placeholder='Location'
                                 onChange={handleChanges}
                             />
-                            <button onClick={() => setLocation(!location)}>Cancel</button>
+                            <button onClick={() => psetLocation(!plocation)}>Cancel</button>
                         </>
                     }
                     
@@ -105,7 +112,6 @@ const UserProfile = props => {
                     <OtherAbout />
                     <div className='posts'>
                         <h1>Posts</h1>
-                        <h1>{currentUser.username}</h1>
                         <div>
                             {props.posts.map(post => (
                                 <div>
