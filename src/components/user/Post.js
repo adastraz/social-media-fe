@@ -7,7 +7,8 @@ import {
     fetchUser,
     fetchUserLikes,
     fetchUserPosts,
-    addComment
+    addComment,
+    getFollowing
 } from '../../actions'
 import axiosWithAuth from '../../utils/axiosWithAuth.js'
 import SidebarFollowing from '../SidebarFollowing.js'
@@ -54,6 +55,7 @@ const Post = props => {
         props.fetchUser(props.location.state)
         props.fetchUserPosts(props.location.state)
         props.fetchUserLikes(props.location.state)
+        props.getFollowing(props.location.state)
     }, [])
 
     useEffect(() => {
@@ -84,7 +86,7 @@ const Post = props => {
     const submitComment = e => {
         e.preventDefault()
         // post comment action (newComment, )
-        props.addComment({ comment: newComment.comment, comment_username: props.user.username }, current.id)
+        props.addComment({ comment: newComment.comment, comment_username: props.user.username }, current.id, props.user.id)
     }
 
     const addLikeHelper = post_id => {
@@ -189,4 +191,4 @@ const mapStateToProps = state => {
         userLikes: state.userLikes
     }
 }
-export default connect(mapStateToProps, { addLike, removeLike, fetchUser, fetchUserLikes, fetchUserPosts, addComment })(Post)
+export default connect(mapStateToProps, { addLike, removeLike, fetchUser, fetchUserLikes, fetchUserPosts, addComment, getFollowing })(Post)
