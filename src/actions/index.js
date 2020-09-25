@@ -251,21 +251,25 @@ export const removeLike1 = (user, post_id) => dispatch => {
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
 
-export const addComment = (comment, post_id, user_id) => dispatch => {
+export const addComment = (comment, post_id) => dispatch => {
     dispatch({ type: FETCHING_START })
     axiosWithAuth()
         .post(`/api/posts/${post_id}/comment`, comment)
             .then(res => {
                 dispatch({ type: FETCHING_SUCCESS })
                 window.location.reload()
-                dispatch ({ type: FETCHING_START })
-                axiosWithAuth()
-                    .get(`/api/users/${user_id}`)
-                        .then(res => {
-                            dispatch({ type: FETCHING_SUCCESS_LOGIN, payload: res.data })
-                        })
-                        .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
-                        })
+                })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
+export const removeComment = (commentid, post_id) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .delete(`/api/posts/${post_id}/comment`, {data: {comment_id: commentid}})
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS })
+                window.location.reload()
+                })
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
 

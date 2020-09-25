@@ -8,7 +8,8 @@ import {
     fetchUserLikes,
     fetchUserPosts,
     addComment,
-    getFollowing
+    getFollowing,
+    removeComment
 } from '../../actions'
 import axiosWithAuth from '../../utils/axiosWithAuth.js'
 import SidebarFollowing from '../SidebarFollowing.js'
@@ -168,10 +169,11 @@ const Post = props => {
                             <button type='submit'>Post Comment</button>
                         </form>
                         {comments.map(comment => (
-                            <>
+                            <div key={comment.id}>
                                 <h5>{comment.comment_username}</h5>
                                 <p>{comment.comment}</p>
-                            </>
+                                <button onClick={() => props.removeComment(comment.id, current.id)}>x</button>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -191,4 +193,4 @@ const mapStateToProps = state => {
         userLikes: state.userLikes
     }
 }
-export default connect(mapStateToProps, { addLike, removeLike, fetchUser, fetchUserLikes, fetchUserPosts, addComment, getFollowing })(Post)
+export default connect(mapStateToProps, { addLike, removeLike, fetchUser, fetchUserLikes, fetchUserPosts, addComment, getFollowing, removeComment })(Post)
