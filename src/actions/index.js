@@ -142,6 +142,16 @@ export const postPost = (userid, post) => dispatch => {
             })
 }
 
+export const postPost1 = (userid, post) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .post(`/api/posts/${userid}`, post)
+            .then(res => {
+                console.log('this is the post res', res)
+                dispatch({ type: FETCHING_SUCCESS })
+            })
+}
+
 export const deletePost = (userid, postid) => dispatch => {
     dispatch({ type: FETCHING_START })
     axiosWithAuth()
