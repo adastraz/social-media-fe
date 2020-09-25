@@ -172,7 +172,10 @@ const Post = props => {
                             <div key={comment.id}>
                                 <h5>{comment.comment_username}</h5>
                                 <p>{comment.comment}</p>
-                                <button onClick={() => props.removeComment(comment.id, current.id)}>x</button>
+                                {comment.comment_username == props.user.username ? 
+                                    <button onClick={() => props.removeComment(comment.id, current.id)}>x</button> :
+                                    ''
+                                }
                             </div>
                         ))}
                     </div>
