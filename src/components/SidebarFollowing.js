@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import '../styles/sidebar.css'
-import { unfollowUser } from '../actions'
+import { getFollowing, fetchUser, unfollowUser } from '../actions'
 import SidebarPosts from './SidebarPosts.js'
 
 const SidebarFollowing = props => {
@@ -18,6 +18,10 @@ const SidebarFollowing = props => {
             return user.username.toLowerCase().includes(search.toLowerCase())
         }))
     }, [search])
+
+    useEffect(() => {
+        props.fetchUser(props.user.id)
+    }, [])
 
     return (
         <div className='fullbar'>
@@ -98,4 +102,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { unfollowUser })(SidebarFollowing)
+export default connect(mapStateToProps, { getFollowing, fetchUser, unfollowUser })(SidebarFollowing)

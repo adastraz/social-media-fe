@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { editProfile, fetchUser } from '../../actions'
 
@@ -68,10 +68,14 @@ const About = props => {
         setEditingEdu(false)
     }
 
+    useEffect(() => {
+        console.log('abt editing', editingEdu, editingBio)
+    }, [editingBio, editingEdu])
+
     return (
         <div className='aboutcont'>
             <h1>About</h1>
-            {props.user.bio == null || props.user.bio == '' && editingBio == false ? 
+            {props.user.bio == null && editingBio == false ? 
                 <>
                     <p onClick={() => setEditingBio(!editingBio)}>Add a bio</p>
                 </> :
@@ -95,7 +99,7 @@ const About = props => {
                     <button onClick={() => setEditingBio(!editingBio)}>edit</button>
                 </>
             }
-            {props.user.education == null || props.user.education == '' && editingEdu == false ? 
+            {props.user.education == null && editingEdu == false ? 
                 <>
                     <p onClick={() => setEditingEdu(!editingEdu)}>Add a Education</p>
                 </> :

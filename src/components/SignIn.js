@@ -9,7 +9,7 @@ const SignIn = props => {
     const [user, setUser] = useState({
         username: '',
         password: '',
-        birthday: ''
+        birthdate: ''
     })
 
     const handleChanges = e => {
@@ -50,11 +50,11 @@ const SignIn = props => {
                     <button type='submit' className='login'>Login</button> :
                     <>
                         <input 
-                            id='birthday'
+                            id='birthdate'
                             type='date'
-                            name='birthday'
+                            name='birthdate'
                             onChange={handleChanges}
-                            value={user.birthday}
+                            value={user.birthdate}
                             placeholder='Birthday'
                         />
                         <button type='submit'>Sign Up</button>

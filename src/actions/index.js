@@ -136,9 +136,19 @@ export const postPost = (userid, post) => dispatch => {
     axiosWithAuth()
         .post(`/api/posts/${userid}`, post)
             .then(res => {
-                console.log(res)
+                console.log('this is the post res', res)
                 dispatch({ type: FETCHING_SUCCESS })
                 window.location.reload()
+            })
+}
+
+export const postPost1 = (userid, post) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .post(`/api/posts/${userid}`, post)
+            .then(res => {
+                console.log('this is the post res', res)
+                dispatch({ type: FETCHING_SUCCESS })
             })
 }
 
@@ -248,7 +258,18 @@ export const addComment = (comment, post_id) => dispatch => {
             .then(res => {
                 dispatch({ type: FETCHING_SUCCESS })
                 window.location.reload()
-            })
+                })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
+export const removeComment = (commentid, post_id) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .delete(`/api/posts/${post_id}/comment`, {data: {comment_id: commentid}})
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS })
+                window.location.reload()
+                })
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
 

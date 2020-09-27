@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { fetchUsers, followUser, unfollowUser } from '../../actions'
+import { fetchUsers, followUser, unfollowUser, postPost1 } from '../../actions'
 import { Link } from 'react-router-dom'
 import SidebarFollowing from '../SidebarFollowing'
 
@@ -23,7 +23,14 @@ const ListUsers = props => {
 
     const submitForm = e => {
         e.preventDefault()
-        props.postPost(props.user.id, {...newPost, user_id: props.user.id})
+        props.postPost1(props.user.id, {...newPost, user_id: props.user.id})
+        setNewPost({
+            location: '',
+            post: '',
+            img: ''
+        })
+        setImg(false)
+        psetLocation(false)
     }
 
     useEffect(() => {
@@ -121,4 +128,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUsers, followUser, unfollowUser })(ListUsers)
+export default connect(mapStateToProps, { fetchUsers, followUser, unfollowUser, postPost1 })(ListUsers)
