@@ -8,10 +8,13 @@ import { fetchUser,
     deletePost, 
     fetchUserLikes,
     addLike,
-    removeLike
+    removeLike,
+    addComment
 } from '../../actions'
+import PostChooser from './PostChooser'
 import About from './About.js'
 import SidebarFollowing from '../SidebarFollowing.js'
+import ListLikes from './ListLikes.js'
 import '../../styles/signin.css'
 import '../../styles/post.css'
 import '../../styles/profile.css'
@@ -33,6 +36,10 @@ const Profile = props => {
         img: ''
     })
 
+    const [newComment, setNewComment] = useState({
+        comment: ''
+    })
+
     const [img, setImg] = useState(false)
     const [location, setLocation] = useState(false) 
 
@@ -40,6 +47,13 @@ const Profile = props => {
         setNewPost({
             ...newPost,
             [e.target.name]: e.target.value
+        })
+    }
+
+    const handleChangesCom = e => {
+        setNewComment({
+            ...newComment,
+            [e.target.className]: e.target.value
         })
     }
 
@@ -58,6 +72,11 @@ const Profile = props => {
 
     const removeLikeHelper = post_id => {
         props.removeLike(props.user, post_id)
+    }
+
+    const submitComment = (post_id) => {
+        // post comment action (newComment, )
+        props.addComment({ comment: newComment.comment, comment_username: props.user.username }, post_id, props.user.id)
     }
 
     return (
@@ -111,7 +130,9 @@ const Profile = props => {
                     <h1>Posts</h1>
                     {props.posts.length > 0 ?
                         <div className='postscont'>
-                            {props.posts.map(post => (
+                            {props.posts.map(post => {
+                                let postthing = `${post.id}`
+                                return (
                                 <div key={post.id} className='borderPosts'>
                                     <p>{post.post}</p>
                                     <p>{post.location}</p>
@@ -119,14 +140,26 @@ const Profile = props => {
                                     <p>{post.img}</p>
                                     {/* comments */}
                                     <p onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>Load comments... [{post.comment_number}]</p>
-                                    <p>Likes: {post.like_number}</p>
-                                    <button onClick={() => props.deletePost(props.user.id, {postid: post.id})}>x</button>
+                                    <ListLikes post={post} /> 
+                                    <PostChooser post={post}/>
                                     {!likedPostId.includes(post.id) ? 
                                         <a className='like' onClick={() => addLikeHelper(post.id)}>Like</a> :
                                         <a className='unlike' onClick={() => removeLikeHelper(post.id)}>Unlike</a>
                                     }
+                                    <form onSubmit={() => submitComment(post.id)}>
+                                        <input
+                                            type='text'
+                                            name={postthing}
+                                            data-id={parseInt(postthing)}
+                                            id={postthing}
+                                            className='comment'
+                                            placeholder='Write a comment...'
+                                            onChange={handleChangesCom}
+                                        />
+                                        <button type='submit'>post</button>
+                                    </form>
                                 </div>
-                            ))}
+                            )})}
                         </div> :
                         <p>No posts to display</p>
                     }
@@ -149,4 +182,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost, fetchUserLikes, addLike, removeLike })(Profile)
+export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost, fetchUserLikes, addLike, addComment, removeLike })(Profile)

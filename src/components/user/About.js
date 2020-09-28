@@ -14,7 +14,7 @@ const About = props => {
 
     // const [editUser, setEditUser] = useState({
     //     bio: '',
-    //     birthday: '',
+    //     birthdate: '',
     //     coverimg: '',
     //     education: '',
     //     location: '',
@@ -67,10 +67,6 @@ const About = props => {
         setEditingBio(false)
         setEditingEdu(false)
     }
-
-    useEffect(() => {
-        console.log('abt editing', editingEdu, editingBio)
-    }, [editingBio, editingEdu])
 
     return (
         <div className='aboutcont'>

@@ -12,10 +12,6 @@ const Header = props => {
         window.location.reload()
     }
 
-    useEffect(() => {
-        console.log(location)
-    })
-
     const { id } = useParams()
 
     return (
