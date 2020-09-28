@@ -8,7 +8,8 @@ import { fetchUser,
     deletePost, 
     fetchUserLikes,
     addLike,
-    removeLike
+    removeLike,
+    addComment
 } from '../../actions'
 import About from './About.js'
 import SidebarFollowing from '../SidebarFollowing.js'
@@ -33,6 +34,10 @@ const Profile = props => {
         img: ''
     })
 
+    const [newComment, setNewComment] = useState({
+        comment: ''
+    })
+
     const [img, setImg] = useState(false)
     const [location, setLocation] = useState(false) 
 
@@ -40,6 +45,13 @@ const Profile = props => {
         setNewPost({
             ...newPost,
             [e.target.name]: e.target.value
+        })
+    }
+
+    const handleChangesCom = e => {
+        setNewComment({
+            ...newComment,
+            [e.target.className]: e.target.value
         })
     }
 
@@ -58,6 +70,11 @@ const Profile = props => {
 
     const removeLikeHelper = post_id => {
         props.removeLike(props.user, post_id)
+    }
+
+    const submitComment = (post_id) => {
+        // post comment action (newComment, )
+        props.addComment({ comment: newComment.comment, comment_username: props.user.username }, post_id, props.user.id)
     }
 
     return (
@@ -111,7 +128,9 @@ const Profile = props => {
                     <h1>Posts</h1>
                     {props.posts.length > 0 ?
                         <div className='postscont'>
-                            {props.posts.map(post => (
+                            {props.posts.map(post => {
+                                let postthing = `${post.id}`
+                                return (
                                 <div key={post.id} className='borderPosts'>
                                     <p>{post.post}</p>
                                     <p>{post.location}</p>
@@ -125,8 +144,20 @@ const Profile = props => {
                                         <a className='like' onClick={() => addLikeHelper(post.id)}>Like</a> :
                                         <a className='unlike' onClick={() => removeLikeHelper(post.id)}>Unlike</a>
                                     }
+                                    <form onSubmit={() => submitComment(post.id)}>
+                                        <input
+                                            type='text'
+                                            name={postthing}
+                                            data-id={parseInt(postthing)}
+                                            id={postthing}
+                                            className='comment'
+                                            placeholder='comment'
+                                            onChange={handleChangesCom}
+                                        />
+                                        <button type='submit'>post</button>
+                                    </form>
                                 </div>
-                            ))}
+                            )})}
                         </div> :
                         <p>No posts to display</p>
                     }
@@ -149,4 +180,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost, fetchUserLikes, addLike, removeLike })(Profile)
+export default connect(mapStateToProps, { fetchUser, getFollowing, fetchUserPosts, postPost, deletePost, fetchUserLikes, addLike, addComment, removeLike })(Profile)
