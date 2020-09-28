@@ -141,7 +141,6 @@ const Profile = props => {
                                     <p onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>Load comments... [{post.comment_number}]</p>
                                     <p>Likes: {post.like_number}</p>
                                     <PostChooser post={post}/>
-                                    {/* <button onClick={() => props.deletePost(props.user.id, {postid: post.id})}>x</button> */}
                                     {!likedPostId.includes(post.id) ? 
                                         <a className='like' onClick={() => addLikeHelper(post.id)}>Like</a> :
                                         <a className='unlike' onClick={() => removeLikeHelper(post.id)}>Unlike</a>

@@ -136,7 +136,6 @@ export const postPost = (userid, post) => dispatch => {
     axiosWithAuth()
         .post(`/api/posts/${userid}`, post)
             .then(res => {
-                console.log('this is the post res', res)
                 dispatch({ type: FETCHING_SUCCESS })
                 window.location.reload()
             })
@@ -147,8 +146,17 @@ export const postPost1 = (userid, post) => dispatch => {
     axiosWithAuth()
         .post(`/api/posts/${userid}`, post)
             .then(res => {
-                console.log('this is the post res', res)
                 dispatch({ type: FETCHING_SUCCESS })
+            })
+}
+
+export const editPost = (post_id, post) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .put(`/api/posts/${post_id}`, post)
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS })
+                window.location.reload()
             })
 }
 
