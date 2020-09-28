@@ -5,6 +5,7 @@ import axiosWithAuth from '../../utils/axiosWithAuth'
 import { useLocation, useParams, Link } from 'react-router-dom'
 import SidebarFollowing from '../SidebarFollowing.js'
 import OtherAbout from './OtherAbout'
+import ListLikes from './ListLikes'
 
 const UserProfile = props => {
     const { id } = useParams()
@@ -136,7 +137,7 @@ const UserProfile = props => {
                                         <p>{post.created_at}</p>
                                         <p>{post.img}</p>
                                         <p onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>Load comments... [{post.comment_number}]</p>
-                                        <p>Likes: {post.like_number}</p>
+                                        <ListLikes post={post} /> 
                                         {!likedPostId.includes(post.id) ? 
                                             <a className='like' onClick={() => props.addLike1(props.user, post.id)}>Like</a> :
                                             <a className='unlike' onClick={() => props.removeLike1(props.user, post.id)}>Unlike</a>

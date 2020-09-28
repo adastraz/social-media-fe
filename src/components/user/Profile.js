@@ -14,6 +14,7 @@ import { fetchUser,
 import PostChooser from './PostChooser'
 import About from './About.js'
 import SidebarFollowing from '../SidebarFollowing.js'
+import ListLikes from './ListLikes.js'
 import '../../styles/signin.css'
 import '../../styles/post.css'
 import '../../styles/profile.css'
@@ -139,7 +140,7 @@ const Profile = props => {
                                     <p>{post.img}</p>
                                     {/* comments */}
                                     <p onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>Load comments... [{post.comment_number}]</p>
-                                    <p>Likes: {post.like_number}</p>
+                                    <ListLikes post={post} /> 
                                     <PostChooser post={post}/>
                                     {!likedPostId.includes(post.id) ? 
                                         <a className='like' onClick={() => addLikeHelper(post.id)}>Like</a> :
