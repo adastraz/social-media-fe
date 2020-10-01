@@ -42,14 +42,28 @@ const UserProfile = props => {
         img: ''
     })
 
+    const [newComment, setNewComment] = useState({
+        comment: ''
+    })
+
     const [img, setImg] = useState(false)
     const [plocation, psetLocation] = useState(false) 
+    const [post_id, setPost_id] = useState(0)
 
     const handleChanges = e => {
         setNewPost({
             ...newPost,
             [e.target.name]: e.target.value
         })
+    }
+
+    const handleChangesCom = e => {
+        setNewComment({
+            ...newComment,
+            [e.target.className]: e.target.value
+        })
+        setPost_id(parseInt(e.target.name))
+        console.log(post_id)
     }
 
     const submitForm = e => {
@@ -71,6 +85,15 @@ const UserProfile = props => {
     props.following.forEach(follow => {
         followingId.push(follow.id)
     })  
+
+    const submitComment = e => {
+        e.preventDefault()
+        props.addComment1({ comment: newComment.comment, comment_username: props.user.username }, post_id, props.user.id)
+        setNewComment({ comment: '' })
+        console.log(e.target)
+        alert('your comment was posted successfully')
+        
+    }
 
     return (
         <>
@@ -142,6 +165,18 @@ const UserProfile = props => {
                                             <a className='like' onClick={() => props.addLike1(props.user, post.id)}>Like</a> :
                                             <a className='unlike' onClick={() => props.removeLike1(props.user, post.id)}>Unlike</a>
                                         }
+                                        <form onSubmit={submitComment}>
+                                            <input
+                                                type='text'
+                                                name={postthing}
+                                                data-id={parseInt(postthing)}
+                                                id={postthing}
+                                                className='comment'
+                                                placeholder='Write a comment...'
+                                                onChange={handleChangesCom}
+                                            />
+                                            <button type='submit'>post</button>
+                                        </form>
                                     </div>
                                 )})}
                             </div>
@@ -165,4 +200,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUserPosts, addLike1, removeLike1, postPost1, fetchUser, followUser, unfollowUser })(UserProfile)
+export default connect(mapStateToProps, { fetchUserPosts, addLike1, removeLike1, postPost1, fetchUser, followUser, unfollowUser, addComment1 })(UserProfile)
