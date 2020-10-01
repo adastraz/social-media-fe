@@ -103,7 +103,7 @@ const PostChooser = props => {
                 <ModalHeader toggle={toggled}>Are you sure?</ModalHeader>
                 <ModalBody>
                     <Button color='danger' onClick={() => props.deletePost(props.user.id, {postid: props.post.id})}>Yes</Button>
-                    <Button color='primary'>No</Button>
+                    <Button color='primary' onClick={toggled}>No</Button>
                 </ModalBody>
             </Modal>
         </DropdownMenu>

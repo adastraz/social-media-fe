@@ -103,7 +103,6 @@ export const unfollowUser = (userid, friendid) => dispatch => {
                     .get(`/api/friends/${userid}`)
                         .then(res => {
                             dispatch({ type: FETCHING_SUCCESS_FOLLOWING, payload: res.data })
-                            // window.location.reload()
                         })
                         .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
                         })
@@ -234,7 +233,6 @@ export const addLike1 = (user, post_id) => dispatch => {
                     .get(`/api/likes/${user.id}/user`)
                         .then(res => {
                             dispatch({ type: FETCHING_SUCCESS_USERLIKES, payload: res.data})
-                            // window.location.reload()
                         })
                         .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
             })
@@ -252,7 +250,6 @@ export const removeLike1 = (user, post_id) => dispatch => {
                     .get(`/api/likes/${user.id}/user`)
                         .then(res => {
                             dispatch({ type: FETCHING_SUCCESS_USERLIKES, payload: res.data})
-                            // window.location.reload()
                         })
                         .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
             })

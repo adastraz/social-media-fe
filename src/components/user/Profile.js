@@ -75,7 +75,6 @@ const Profile = props => {
     }
 
     const submitComment = (post_id) => {
-        // post comment action (newComment, )
         props.addComment({ comment: newComment.comment, comment_username: props.user.username }, post_id, props.user.id)
     }
 

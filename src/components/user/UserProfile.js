@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { fetchUserPosts, addLike1, removeLike1, postPost1, fetchUser, followUser, unfollowUser } from '../../actions'
+import { fetchUserPosts, addLike1, removeLike1, postPost1, fetchUser, followUser, unfollowUser, addComment1 } from '../../actions'
 import { connect } from 'react-redux'
 import axiosWithAuth from '../../utils/axiosWithAuth'
 import { useLocation, useParams, Link } from 'react-router-dom'
@@ -72,8 +72,6 @@ const UserProfile = props => {
         followingId.push(follow.id)
     })  
 
-    console.log('history', props.history)
-
     return (
         <>
             <div className='sidebar'>
@@ -130,7 +128,9 @@ const UserProfile = props => {
                         <div className='posts'>
                             <h1>Posts</h1>
                             <div>
-                                {props.posts.map(post => (
+                                {props.posts.map(post => {
+                                    let postthing = `${post.id}`
+                                    return (
                                     <div>
                                         <p>{post.post}</p>
                                         <p>{post.location}</p>
@@ -143,7 +143,7 @@ const UserProfile = props => {
                                             <a className='unlike' onClick={() => props.removeLike1(props.user, post.id)}>Unlike</a>
                                         }
                                     </div>
-                                ))}
+                                )})}
                             </div>
                         </div>
                     </div>
