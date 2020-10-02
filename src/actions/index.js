@@ -267,6 +267,16 @@ export const addComment = (comment, post_id) => dispatch => {
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
 
+export const addComment1 = (comment, post_id) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .post(`/api/posts/${post_id}/comment`, comment)
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS })
+                })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
 export const removeComment = (commentid, post_id) => dispatch => {
     dispatch({ type: FETCHING_START })
     axiosWithAuth()
