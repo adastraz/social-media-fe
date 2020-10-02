@@ -86,7 +86,6 @@ const Post = props => {
 
     const submitComment = e => {
         e.preventDefault()
-        // post comment action (newComment, )
         props.addComment({ comment: newComment.comment, comment_username: props.user.username }, current.id, props.user.id)
     }
 
@@ -196,4 +195,5 @@ const mapStateToProps = state => {
         userLikes: state.userLikes
     }
 }
+
 export default connect(mapStateToProps, { addLike, removeLike, fetchUser, fetchUserLikes, fetchUserPosts, addComment, getFollowing, removeComment })(Post)

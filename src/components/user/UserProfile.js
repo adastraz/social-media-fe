@@ -6,6 +6,7 @@ import { useLocation, useParams, Link } from 'react-router-dom'
 import SidebarFollowing from '../SidebarFollowing.js'
 import OtherAbout from './OtherAbout'
 import ListLikes from './ListLikes'
+import LoadComments from './LoadComments'
 
 const UserProfile = props => {
     const { id } = useParams()
@@ -27,14 +28,7 @@ const UserProfile = props => {
 
     useEffect(() => {
         props.fetchUser(props.user.id)
-        console.log(props.user)
     }, [])
-
-    // useEffect(() => {
-    //     if (!location.pathname.includes(currentUser.id)) {
-    //         window.location.reload()
-    //     }
-    // }, [location])
 
     const [newPost, setNewPost] = useState({
         location: '',
@@ -92,7 +86,6 @@ const UserProfile = props => {
         setNewComment({ comment: '' })
         console.log(e.target)
         alert('your comment was posted successfully')
-        
     }
 
     return (
@@ -146,7 +139,6 @@ const UserProfile = props => {
                         <button type='submit'>Post</button>
                     </form>
                     <div className='postabout'>
-                        {/* <About /> */}
                         <OtherAbout />
                         <div className='posts'>
                             <h1>Posts</h1>
@@ -159,7 +151,7 @@ const UserProfile = props => {
                                         <p>{post.location}</p>
                                         <p>{post.created_at}</p>
                                         <p>{post.img}</p>
-                                        <p onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>Load comments... [{post.comment_number}]</p>
+                                        <LoadComments post={post}/>
                                         <ListLikes post={post} /> 
                                         {!likedPostId.includes(post.id) ? 
                                             <a className='like' onClick={() => props.addLike1(props.user, post.id)}>Like</a> :

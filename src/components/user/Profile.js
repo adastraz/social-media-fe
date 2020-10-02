@@ -15,6 +15,7 @@ import PostChooser from './PostChooser'
 import About from './About.js'
 import SidebarFollowing from '../SidebarFollowing.js'
 import ListLikes from './ListLikes.js'
+import LoadComments from './LoadComments.js'
 import '../../styles/signin.css'
 import '../../styles/post.css'
 import '../../styles/profile.css'
@@ -138,7 +139,8 @@ const Profile = props => {
                                     <p>{post.created_at}</p>
                                     <p>{post.img}</p>
                                     {/* comments */}
-                                    <p onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>Load comments... [{post.comment_number}]</p>
+                                    {/* <p onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>Load comments... [{post.comment_number}]</p> */}
+                                    <LoadComments post={post}/>
                                     <ListLikes post={post} /> 
                                     <PostChooser post={post}/>
                                     {!likedPostId.includes(post.id) ? 
