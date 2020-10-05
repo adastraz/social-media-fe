@@ -288,6 +288,17 @@ export const removeComment = (commentid, post_id) => dispatch => {
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
 
+export const removeComment1 = (commentid, post_id) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .delete(`/api/posts/${post_id}/comment`, {data: {comment_id: commentid}})
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS })
+                // window.location.reload()
+                })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
 export const clearError = () => dispatch => {
     dispatch({ type: CLEAR_ERROR })
 }
