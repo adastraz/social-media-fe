@@ -3,11 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { Button, 
     Modal, 
     ModalHeader, 
-    ModalBody, 
-    ButtonDropdown, 
-    DropdownToggle, 
-    DropdownMenu, 
-    DropdownItem
+    ModalBody
 } from 'reactstrap'
 import { 
     addLike, 
@@ -56,12 +52,11 @@ const LoadComments = props => {
 
     const submitComment = e => {
         e.preventDefault()
-        if (location.pathname.includes('profile')) {
-            props.addComment({ comment: newComment.comment, comment_username: props.user.username }, current.id, props.user.id)
-        } else {
-            props.addComment1({ comment: newComment.comment, comment_username: props.user.username }, current.id, props.user.id)
-            toggle()
-        }
+        props.addComment1({ comment: newComment.comment, comment_username: props.user.username }, current.id, props.user.id)
+        setComments([
+            ...comments, { comment: newComment.comment, comment_username: props.user.username, id: Date.now() }])
+        setNewComment({ comment: '' })
+        setCurrent({ ...current, comment_number: current.comment_number+1 })
     }
 
     const addLikeHelper = post_id => {
