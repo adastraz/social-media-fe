@@ -3,14 +3,15 @@ import { useLocation } from 'react-router-dom'
 import { Button, 
     Modal, 
     ModalHeader, 
-    ModalBody
+    ModalBody, ModalFooter
 } from 'reactstrap'
 import { 
     addLike, 
     removeLike,
     addComment,
     addComment1,
-    removeComment
+    removeComment,
+    removeComment1
 } from '../../actions'
 import { connect } from 'react-redux'
 import axiosWithAuth from '../../utils/axiosWithAuth'
@@ -59,6 +60,13 @@ const LoadComments = props => {
         setCurrent({ ...current, comment_number: current.comment_number+1 })
     }
 
+    const removeCommentHelper = comment_id => {
+        props.removeComment1(comment_id, current.id)
+        const newarr = comments.filter(comm => comment_id !== comm.id)
+        setComments(newarr)
+        setCurrent({ ...current, comment_number: current.comment_number-1 })
+    }
+
     const addLikeHelper = post_id => {
         props.addLike(props.user, post_id)
         window.location.reload()
@@ -86,17 +94,6 @@ const LoadComments = props => {
                             <a className='like' onClick={() => addLikeHelper(current.id)}>Like</a> :
                             <a className='unlike' onClick={() => removeLikeHelper(current.id)}>Unlike</a>
                         }
-                        <form onSubmit={submitComment}>
-                            <input
-                                id='comment'
-                                type='textbox'
-                                name='comment'
-                                value={newComment.comment}
-                                placeholder='Comment on post'
-                                onChange={handleChanges}
-                            />
-                            <button type='submit'>Post Comment</button>
-                        </form>
                     </ModalHeader>
                         <ModalBody>
                             {comments.map(comment => (
@@ -104,12 +101,25 @@ const LoadComments = props => {
                                     <h5>{comment.comment_username}</h5>
                                     <p>{comment.comment}</p>
                                     {comment.comment_username == props.user.username ? 
-                                        <button onClick={() => props.removeComment(comment.id, current.id)}>x</button> :
+                                        <button onClick={() => removeCommentHelper(comment.id)}>x</button> :
                                         ''
                                     }
                                 </div>
                             ))}
                         </ModalBody>
+                        <ModalFooter>
+                            <form onSubmit={submitComment}>
+                                <input
+                                    id='comment'
+                                    type='textbox'
+                                    name='comment'
+                                    value={newComment.comment}
+                                    placeholder='Comment on post'
+                                    onChange={handleChanges}
+                                />
+                                <button type='submit'>Post Comment</button>
+                            </form>
+                        </ModalFooter>
                     </div>
             </Modal>
         </div>
@@ -128,4 +138,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { removeLike, addLike, addComment, addComment1, removeComment })(LoadComments)
+export default connect(mapStateToProps, { removeLike, addLike, addComment, addComment1, removeComment, removeComment1 })(LoadComments)
