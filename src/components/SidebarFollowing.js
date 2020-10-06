@@ -40,10 +40,7 @@ const SidebarFollowing = props => {
                     'fixed sidebarcont' : 
                     'scrolly sidebarcont'
             }>  
-                {followers ?
-                    <h2 onClick={() => setFollowers(false)}>Followers</h2> :
-                    <h2 onClick={() => setFollowers(true)}>Following</h2>
-                }
+                <h2 className='titleside' onClick={() => setFollowers(true)}>Following</h2>
                 {/* <div className='sidebarbuttons'>   
                     <a onClick={() => {
                         setMaparoo(!maparoo)
@@ -57,6 +54,7 @@ const SidebarFollowing = props => {
                         type='search'
                         onChange={e => setSearch(e.target.value)}
                         placeholder='Search'
+                        className='titlesides'
                     /> :
                     ''
                 }

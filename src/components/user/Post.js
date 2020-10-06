@@ -156,6 +156,16 @@ const Post = props => {
                             <a className='like' onClick={() => addLikeHelper(current.id)}>Like</a> :
                             <a className='unlike' onClick={() => removeLikeHelper(current.id)}>Unlike</a>
                         }
+                        {comments.map(comment => (
+                            <div key={comment.id}>
+                                <h5>{comment.comment_username}</h5>
+                                <p>{comment.comment}</p>
+                                {comment.comment_username == props.user.username ? 
+                                    <button onClick={() => props.removeComment(comment.id, current.id)}>x</button> :
+                                    ''
+                                }
+                            </div>
+                        ))}
                         <form onSubmit={submitComment}>
                             <input
                                 id='comment'
@@ -167,16 +177,6 @@ const Post = props => {
                             />
                             <button type='submit'>Post Comment</button>
                         </form>
-                        {comments.map(comment => (
-                            <div key={comment.id}>
-                                <h5>{comment.comment_username}</h5>
-                                <p>{comment.comment}</p>
-                                {comment.comment_username == props.user.username ? 
-                                    <button onClick={() => props.removeComment(comment.id, current.id)}>x</button> :
-                                    ''
-                                }
-                            </div>
-                        ))}
                     </div>
                 </div>
             </div>
