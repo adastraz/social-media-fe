@@ -7,6 +7,9 @@ import SidebarFollowing from '../SidebarFollowing.js'
 import OtherAbout from './OtherAbout'
 import ListLikes from './ListLikes'
 import LoadComments from './LoadComments'
+import Unfollow from '../../styles/img/user-remove.svg'
+import User from '../../styles/img/user.svg'
+import Follow from '../../styles/img/user-add.svg'
 
 const UserProfile = props => {
     const { id } = useParams()
@@ -95,8 +98,14 @@ const UserProfile = props => {
                 <div className='profilecontainer'>
                     <h1>{currentUser.username}</h1>
                     {followingId.includes(currentUser.id) ? 
-                        <button onClick={() => props.unfollowUser(props.user.id, {friend: currentUser.id})}>Unfollow</button> :
-                        <button onClick={() => props.followUser(props.user.id, {friend: currentUser.id})}>Follow</button>
+                        <img 
+                            src={User}
+                            className='blueunfollow'
+                            onMouseOut={e => e.currentTarget.src='/static/media/user.ccdb3296.svg'}
+                            onMouseOver={e => e.currentTarget.src='/static/media/user-remove.e0474d32.svg'}
+                            onClick={() => props.unfollowUser(props.user.id, {friend: currentUser.id})}
+                        /> :
+                        <img src={Follow} className='redfollow' onClick={() => props.followUser(props.user.id, {friend: currentUser.id})} />
                     }
                     <form onSubmit={submitForm} className='postform'>
                         <input 

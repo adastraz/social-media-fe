@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import { fetchUsers, followUser, unfollowUser, postPost1 } from '../../actions'
 import { Link } from 'react-router-dom'
 import SidebarFollowing from '../SidebarFollowing'
+import Unfollow from '../../styles/img/user-remove.svg'
+import User from '../../styles/img/user.svg'
+import Follow from '../../styles/img/user-add.svg'
 
 const ListUsers = props => {
     const [newPost, setNewPost] = useState({
@@ -96,16 +99,21 @@ const ListUsers = props => {
                                 <>
                                     <Link to={`/friend/${user.id}`}>
                                         <h1>{user.username}</h1>
-                                        <p>following</p>
                                     </Link>
-                                    <button onClick={() => props.unfollowUser(props.user.id, {friend: user.id})}>Unfollow</button>
+                                    <img 
+                                        src={User}
+                                        className='blueunfollow'
+                                        onClick={() => props.unfollowUser(props.user.id, {friend: user.id})}
+                                        onMouseOut={e => e.currentTarget.src='/static/media/user.ccdb3296.svg'}
+                                        onMouseOver={e => e.currentTarget.src='/static/media/user-remove.e0474d32.svg'}
+                                    />
                                 </> : 
                             props.user.id != user.id ?
                                 <>
                                     <Link to={`/user/${user.id}`}>
                                         <h1>{user.username}</h1>
                                     </Link>
-                                    <button onClick={() => props.followUser(props.user.id, {friend: user.id})}>Follow</button>
+                                    <img src={Follow} onClick={() => props.followUser(props.user.id, {friend: user.id})} className='redfollow'/>
                                 </> :
                                 ''
                             }

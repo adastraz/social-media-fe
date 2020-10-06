@@ -67,7 +67,7 @@ const SidebarFollowing = props => {
                                         <h4 className='sidebar'>{follow.username}</h4>
                                     </Link>
                                     <img 
-                                        src={User} className='sidebar' 
+                                        src={User} className='sidebar blueunfollow' 
                                         onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})} 
                                         onMouseOut={e => e.currentTarget.src='/static/media/user.ccdb3296.svg'}
                                         onMouseOver={e => e.currentTarget.src='/static/media/user-remove.e0474d32.svg'}
@@ -82,7 +82,7 @@ const SidebarFollowing = props => {
                                     <Link to={`/friend/${follow.id}`}>
                                         <h4 className='sidebar'>{follow.username}</h4>
                                     </Link>
-                                    <img src={User} className='sidebar'onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})} />
+                                    <img src={User} className='sidebar blueunfollow'onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})} />
                                 </div>
                             </div> 
                         )) :
