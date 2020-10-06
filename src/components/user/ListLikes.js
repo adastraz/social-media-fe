@@ -16,8 +16,8 @@ const ListLikes = props => {
     },[])
 
     return (
-        <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-            <DropdownToggle caret>
+        <Dropdown isOpen={dropdownOpen} toggle={toggle} id='listlikes'>
+            <DropdownToggle id='listlikes' className='listlikes2'>
                 Likes: {props.post.like_number}
             </DropdownToggle>
             <DropdownMenu>

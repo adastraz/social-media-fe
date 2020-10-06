@@ -157,7 +157,7 @@ const UserProfile = props => {
                                             <a className='like' onClick={() => props.addLike1(props.user, post.id)}>Like</a> :
                                             <a className='unlike' onClick={() => props.removeLike1(props.user, post.id)}>Unlike</a>
                                         }
-                                        <form onSubmit={submitComment}>
+                                        {/* <form onSubmit={submitComment}>
                                             <input
                                                 type='text'
                                                 name={postthing}
@@ -168,7 +168,7 @@ const UserProfile = props => {
                                                 onChange={handleChangesCom}
                                             />
                                             <button type='submit'>post</button>
-                                        </form>
+                                        </form> */}
                                     </div>
                                 )})}
                             </div>

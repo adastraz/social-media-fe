@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { editProfile, fetchUser } from '../../actions'
+import Edit from '../../styles/img/edit.svg'
+import Check from '../../styles/img/check.svg'
+import Close from '../../styles/img/close.svg'
 
 const About = props => {
     const [editingBio, setEditingBio] = useState(false)
@@ -86,13 +89,13 @@ const About = props => {
                         placeholder={props.user.bio}
                         onChange={handleChangesBio}
                     />
-                    <button onClick={allEditingDoneBio}>Done</button>
-                    <button onClick={cancelEditing}>Cancel</button>
+                    <img src={Check} onClick={allEditingDoneBio} />
+                    <img src={Close} onClick={cancelEditing} />
                 </> :
                 <>
                     <p>Bio</p>
                     <p>{props.user.bio}</p>
-                    <button onClick={() => setEditingBio(!editingBio)}>edit</button>
+                    <img src={Edit} onClick={() => setEditingBio(!editingBio)} />
                 </>
             }
             {props.user.education == null && editingEdu == false ? 
@@ -110,13 +113,13 @@ const About = props => {
                         placeholder={props.user.education}
                         onChange={handleChangesEdu}
                     />
-                    <button onClick={allEditingDoneEdu}>Done</button>
-                    <button onClick={cancelEditing}>Cancel</button>
+                    <img src={Check} onClick={allEditingDoneEdu} />
+                    <img src={Close} onClick={cancelEditing} />
                 </> :
                 <>  
                     <p>Education</p>
                     <p>{props.user.education}</p>
-                    <button onClick={() => setEditingEdu(!editingEdu)}>edit</button>
+                    <img src={Edit} onClick={() => setEditingEdu(!editingEdu)} />
                 </>
             }
         </div>

@@ -26,3 +26,35 @@
 .posts{
     width: 60%;
 }
+
+#editbutt {
+    background-color: white;
+    border: 0px
+}
+
+#listlikes {
+    position: relative;
+    background-color: white;
+    border: 0px;
+    text-decoration: none;
+    color: darkslategray
+}
+
+
+.listlikes2:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -.25rem;
+    left: -1rem;
+    background-color: darkslategray;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.listlikes2:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+}

@@ -147,7 +147,7 @@ const Profile = props => {
                                         <a className='like' onClick={() => addLikeHelper(post.id)}>Like</a> :
                                         <a className='unlike' onClick={() => removeLikeHelper(post.id)}>Unlike</a>
                                     }
-                                    <form onSubmit={() => submitComment(post.id)}>
+                                    {/* <form onSubmit={() => submitComment(post.id)}>
                                         <input
                                             type='text'
                                             name={postthing}
@@ -158,7 +158,7 @@ const Profile = props => {
                                             onChange={handleChangesCom}
                                         />
                                         <button type='submit'>post</button>
-                                    </form>
+                                    </form> */}
                                 </div>
                             )})}
                         </div> :
