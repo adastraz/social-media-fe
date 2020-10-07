@@ -79,3 +79,17 @@
     padding: 1.25rem;
     border-radius: 2rem
 }
+
+.redfollow{
+    background-color: lightcoral;
+    border-radius: 3rem;
+    padding:.25rem;
+    cursor: pointer;
+}
+
+.blueunfollow{
+    background-color: lightblue;
+    border-radius: 3rem;
+    padding:.25rem;
+    cursor: pointer;
+}

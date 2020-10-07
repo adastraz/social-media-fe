@@ -62,7 +62,7 @@ const SidebarPosts = props => {
                     'fixed sidebarcont' : 
                     'scrolly sidebarcont'
             }>  
-                <h2>Posts</h2>
+                <h2 className='titleside'>Posts</h2>
                 {/* <div className='sidebarbuttons'>   
                     <a onClick={() => {
                         setMaparoo(!maparoo)
@@ -76,6 +76,7 @@ const SidebarPosts = props => {
                         type='search'
                         onChange={e => setSearch(e.target.value)}
                         placeholder='Search'
+                        className='titlesides'
                     /> :
                     ''
                 }

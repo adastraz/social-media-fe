@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import '../styles/sidebar.css'
 import { getFollowing, fetchUser, unfollowUser } from '../actions'
 import SidebarPosts from './SidebarPosts.js'
+import Unfollow from '../styles/img/user-remove.svg'
+import User from '../styles/img/user.svg'
 
 const SidebarFollowing = props => {
     const [fixed, setFixed] = useState(true) 
@@ -38,10 +40,7 @@ const SidebarFollowing = props => {
                     'fixed sidebarcont' : 
                     'scrolly sidebarcont'
             }>  
-                {followers ?
-                    <h2 onClick={() => setFollowers(false)}>Followers</h2> :
-                    <h2 onClick={() => setFollowers(true)}>Following</h2>
-                }
+                <h2 className='titleside' onClick={() => setFollowers(true)}>Following</h2>
                 {/* <div className='sidebarbuttons'>   
                     <a onClick={() => {
                         setMaparoo(!maparoo)
@@ -55,6 +54,7 @@ const SidebarFollowing = props => {
                         type='search'
                         onChange={e => setSearch(e.target.value)}
                         placeholder='Search'
+                        className='titlesides'
                     /> :
                     ''
                 }
@@ -66,7 +66,12 @@ const SidebarFollowing = props => {
                                     <Link to={`/friend/${follow.id}`}>
                                         <h4 className='sidebar'>{follow.username}</h4>
                                     </Link>
-                                    <button className='sidebar'onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})}>unfollow</button>
+                                    <img 
+                                        src={User} className='sidebar blueunfollow' 
+                                        onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})} 
+                                        onMouseOut={e => e.currentTarget.src='/static/media/user.ccdb3296.svg'}
+                                        onMouseOver={e => e.currentTarget.src='/static/media/user-remove.e0474d32.svg'}
+                                    />
                                 </div>
                             </div> 
                         )) :
@@ -77,7 +82,7 @@ const SidebarFollowing = props => {
                                     <Link to={`/friend/${follow.id}`}>
                                         <h4 className='sidebar'>{follow.username}</h4>
                                     </Link>
-                                    <button className='sidebar'onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})}>unfollow</button>
+                                    <img src={User} className='sidebar blueunfollow'onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})} />
                                 </div>
                             </div> 
                         )) :

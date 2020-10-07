@@ -15,6 +15,8 @@ import {
 } from '../../actions'
 import { connect } from 'react-redux'
 import axiosWithAuth from '../../utils/axiosWithAuth'
+import Close from '../../styles/img/close.svg'
+import Delete from '../../styles/img/delete.svg'
 
 const LoadComments = props => {
     const [current, setCurrent] = useState({})
@@ -89,7 +91,7 @@ const LoadComments = props => {
                         <p>{current.img}</p>
                         
                         <p>Likes: {current.like_number}</p>
-                        <button onClick={() => props.deletePost(props.user.id, {postid: current.id})}>x</button>
+                        <img src={Delete} onClick={() => props.deletePost(props.user.id, {postid: current.id})} />
                         {!likedPostId.includes(current.id) ? 
                             <a className='like' onClick={() => addLikeHelper(current.id)}>Like</a> :
                             <a className='unlike' onClick={() => removeLikeHelper(current.id)}>Unlike</a>
@@ -101,7 +103,7 @@ const LoadComments = props => {
                                     <h5>{comment.comment_username}</h5>
                                     <p>{comment.comment}</p>
                                     {comment.comment_username == props.user.username ? 
-                                        <button onClick={() => removeCommentHelper(comment.id)}>x</button> :
+                                        <img src={Close} onClick={() => removeCommentHelper(comment.id)} /> :
                                         ''
                                     }
                                 </div>

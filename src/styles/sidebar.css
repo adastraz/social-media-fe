@@ -5,7 +5,11 @@
     margin-right: 2%;
     border-radius: 2rem;
     max-height: 250px;
-    overflow:auto
+    overflow-y:auto;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 .hideside {
@@ -19,7 +23,7 @@
 
 .fixed{
     position: fixed;
-    padding: .5% 2%;
+    padding: .5% 0;
     border: 2px solid red
 }
 
@@ -32,7 +36,7 @@
 .sidebarflex{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: space-between;
     justify-content: center;
 }
 
@@ -73,4 +77,12 @@
 
 .view{
     margin-top: 60px;
+}
+
+.titleside{
+    text-align: center;
+}
+
+.titlesides{
+    margin-left: 12.5%
 }
