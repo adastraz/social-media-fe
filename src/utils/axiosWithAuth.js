@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const axiosWithAuth = () => {
     return axios.create({
-        baseURL: 'http://localhost:3300/',
+        baseURL: 'https://socialclone1.herokuapp.com/',
         headers: {
             Authorization: localStorage.getItem('token')
         }
