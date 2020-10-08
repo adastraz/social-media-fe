@@ -1,68 +1,33 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This app is hosted by Amplify (on a seperate repository due to file structure)! : https://developement.d2gyknsnhpxh90.amplifyapp.com/
 
-## Available Scripts
+Wireframe designs: https://www.figma.com/file/b4WQld5y3Rcr3vRJvhr3mN/Untitled?node-id=0%3A1
 
-In the project directory, you can run:
+## Table of Contents
+* [General Information](#general-information)
+* [Technologies](#technologies)
+* [Setup](#setup)
 
-### `yarn start`
+## General Information
+This social media clone is my first solo project after completing my certificate at Lambda School! I have always wanted to create something with lots of functionality choices, so I felt that beginning my own social media clone would be a perfect route to take! Users may post text based 'posts' that can include a location, and an image (not yet functional). Users can follow other users, comments on other posts, and like posts. More functionality will be coming with time! 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Technologies
+Social-Media Clone is created with :
+* React 16.12.0
+* Redux 4.0.5
+* react-router-dom 5.1.2
+* axios 0.19.2
+* Bootstrap 4.4.1
+* Jest 4.2.4
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Backend is located here :
+https://github.com/adastraz/social-media-be
 
-### `yarn test`
+## Setup
+To run this project, install it locally using yarn :
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+$ cd social-media-fe/
+$ yarn
+$ yarn start
+```
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
