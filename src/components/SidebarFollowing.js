@@ -8,12 +8,9 @@ import Unfollow from '../styles/img/user-remove.svg'
 import User from '../styles/img/user.svg'
 
 const SidebarFollowing = props => {
-    const [fixed, setFixed] = useState(true) 
-    const [maparoo, setMaparoo] = useState(true)
     const [hide, setHide] = useState(false)
     const [search, setSearch] = useState('')
     const [usersFollowing, setUsersFollowing] = useState([])
-    const [followers, setFollowers] = useState(false)
 
     useEffect(() => {
         setUsersFollowing(props.following.filter(user => {
@@ -28,38 +25,21 @@ const SidebarFollowing = props => {
     return (
         <div className='fullbar'>
             <button className='closer' onClick={() => setHide(!hide)}>-</button>
-            <button className='closer pin' onClick={() => setFixed(!fixed)}>P</button>
-            <button onClick={() => {
-                        setMaparoo(!maparoo)
-                        setSearch('')
-                    }} className='closer view'>V</button>
             <div className={
                 hide  ?
                     'fixed sidebarcont hideside' :
-                fixed ? 
-                    'fixed sidebarcont' : 
-                    'scrolly sidebarcont'
+                    'fixed sidebarcont'
             }>  
-                <h2 className='titleside' onClick={() => setFollowers(true)}>Following</h2>
-                {/* <div className='sidebarbuttons'>   
-                    <a onClick={() => {
-                        setMaparoo(!maparoo)
-                        setSearch('')
-                    }} className={fixed ? 'like' : 'unlike'}>View</a>
-                    <a onClick={() => setFixed(!fixed)} className={fixed ? 'like' : 'unlike'}>Pin</a>
-                </div> */}
+                <h2 className='titleside'>Following</h2>
                 <hr></hr>
-                {maparoo ? 
-                    <input
-                        type='search'
-                        onChange={e => setSearch(e.target.value)}
-                        placeholder='Search'
-                        className='titlesides'
-                    /> :
-                    ''
-                }
+                <input
+                    type='search'
+                    onChange={e => setSearch(e.target.value)}
+                    placeholder='Search'
+                    className='titlesides'
+                /> 
                 <div className='sidebarover'>
-                    {maparoo && !usersFollowing.length > 0 ?
+                    {!usersFollowing.length > 0 ?
                         props.following.map(follow => (
                             <div className='sidebarflex'>
                                 <div className='userssidebar'>
@@ -75,7 +55,7 @@ const SidebarFollowing = props => {
                                 </div>
                             </div> 
                         )) :
-                    maparoo && usersFollowing.length > 0 ?
+                    usersFollowing.length > 0 ?
                         usersFollowing.map(follow => (
                             <div className='sidebarflex'>
                                 <div className='userssidebar'>
@@ -90,7 +70,7 @@ const SidebarFollowing = props => {
                     }
                 </div>
             </div>
-            <SidebarPosts followingFixed={fixed} history={props.history}/>
+            <SidebarPosts history={props.history}/>
         </div>
     )
 }

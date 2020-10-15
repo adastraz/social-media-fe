@@ -19,6 +19,7 @@ import LoadComments from './LoadComments.js'
 import '../../styles/signin.css'
 import '../../styles/post.css'
 import '../../styles/profile.css'
+import Loader from 'react-loader-spinner'
 
 const Profile = props => {
     const { id } = useParams()
@@ -128,39 +129,28 @@ const Profile = props => {
                     <About />
                     <div className='posts'>
                     <h1>Posts</h1>
+                    {
+                        props.isLoading ? 
+                        <Loader type='Bars' /> :
+                        ''
+                    }
                     {props.posts.length > 0 ?
                         <div className='postscont'>
-                            {props.posts.map(post => {
-                                let postthing = `${post.id}`
-                                return (
+                            {props.posts.map(post => (
                                 <div key={post.id} className='borderPosts'>
                                     <p>{post.post}</p>
                                     <p>{post.location}</p>
                                     <p>{post.created_at}</p>
                                     <p>{post.img}</p>
-                                    {/* comments */}
-                                    {/* <p onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>Load comments... [{post.comment_number}]</p> */}
                                     <LoadComments post={post}/>
                                     <ListLikes post={post} /> 
-                                    <PostChooser post={post}/>
+                                    <PostChooser post={post} />
                                     {!likedPostId.includes(post.id) ? 
                                         <a className='like' onClick={() => addLikeHelper(post.id)}>Like</a> :
                                         <a className='unlike' onClick={() => removeLikeHelper(post.id)}>Unlike</a>
                                     }
-                                    {/* <form onSubmit={() => submitComment(post.id)}>
-                                        <input
-                                            type='text'
-                                            name={postthing}
-                                            data-id={parseInt(postthing)}
-                                            id={postthing}
-                                            className='comment'
-                                            placeholder='Write a comment...'
-                                            onChange={handleChangesCom}
-                                        />
-                                        <button type='submit'>post</button>
-                                    </form> */}
                                 </div>
-                            )})}
+                            ))}
                         </div> :
                         <p>No posts to display</p>
                     }

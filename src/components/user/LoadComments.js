@@ -3,25 +3,34 @@ import { useLocation } from 'react-router-dom'
 import { Button, 
     Modal, 
     ModalHeader, 
-    ModalBody, ModalFooter
+    ModalBody, 
+    ModalFooter,
+    DropdownItem
 } from 'reactstrap'
 import { 
     addLike, 
     removeLike,
+    addLike1, 
+    removeLike1,
     addComment,
     addComment1,
     removeComment,
-    removeComment1
+    removeComment1,
+    deletePost
 } from '../../actions'
 import { connect } from 'react-redux'
 import axiosWithAuth from '../../utils/axiosWithAuth'
 import Close from '../../styles/img/close.svg'
 import Delete from '../../styles/img/delete.svg'
+import Check from '../../styles/img/check.svg'
 
 const LoadComments = props => {
     const [current, setCurrent] = useState({})
     const [comments, setComments] = useState([])
     const [modal, setModal] = useState(false)
+    const [modald, setModald] = useState(false)
+    const toggled = () => setModald(!modald)
+    // const [dropdownOpen, setOpen] = useState(false)
     const location = useLocation()
     const toggle = () => setModal(!modal)
     const likedPostId = []
@@ -70,18 +79,25 @@ const LoadComments = props => {
     }
 
     const addLikeHelper = post_id => {
-        props.addLike(props.user, post_id)
-        window.location.reload()
+        props.addLike1(props.user, post_id)
+        likedPostId.push(post_id)
+        setCurrent({ ...current, like_number: current.like_number+1 })
     }
 
     const removeLikeHelper = post_id => {
-        props.removeLike(props.user, post_id)
-        window.location.reload()
+        // window.location.reload()
+        props.removeLike1(props.user, post_id)
+        likedPostId.filter(like => post_id !== like)
+        setCurrent({ ...current, like_number: current.like_number-1 })
     }
 
     return (
         <div>
-            <Button color="danger" onClick={toggle}>Load Comments... [{current.comment_number}]</Button>
+            {props.sidebar ?
+                <Button color="info" id='sidelc' onClick={toggle}>{props.post.post}</Button> :
+                <Button color="danger" onClick={toggle}>Load Comments... [{current.comment_number}]</Button>
+            }
+            
             <Modal isOpen={modal} toggle={toggle}>
                 <div key={current.id} className='explore'>
                     <ModalHeader>
@@ -91,7 +107,19 @@ const LoadComments = props => {
                         <p>{current.img}</p>
                         
                         <p>Likes: {current.like_number}</p>
-                        <img src={Delete} onClick={() => props.deletePost(props.user.id, {postid: current.id})} />
+                        {current.user_id == props.user.id ?
+                            <>
+                                <DropdownItem onClick={toggled}><img src={Delete} /></DropdownItem>
+                                <Modal isOpen={modald} toggle={toggled}>
+                                    <ModalHeader toggle={toggled}>Are you sure?</ModalHeader>
+                                    <ModalBody>
+                                        <Button color='danger' onClick={() => props.deletePost(props.user.id, {postid: current.id})}><img src={Check} /></Button>
+                                        <Button color='primary' onClick={toggled}><img src={Close} /></Button>
+                                    </ModalBody>
+                                </Modal>
+                            </> :
+                            ''
+                        }
                         {!likedPostId.includes(current.id) ? 
                             <a className='like' onClick={() => addLikeHelper(current.id)}>Like</a> :
                             <a className='unlike' onClick={() => removeLikeHelper(current.id)}>Unlike</a>
@@ -140,4 +168,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { removeLike, addLike, addComment, addComment1, removeComment, removeComment1 })(LoadComments)
+export default connect(mapStateToProps, { addLike, removeLike, removeLike1, addLike1, addComment, addComment1, removeComment, removeComment1, deletePost })(LoadComments)

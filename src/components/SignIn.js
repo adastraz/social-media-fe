@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { login, register, clearError } from '../actions'
 import '../styles/signin.css'
+import Loader from 'react-loader-spinner'
 
 const SignIn = props => {
     const location = useLocation()
@@ -75,6 +76,11 @@ const SignIn = props => {
             {location.pathname == '/signin' ? 
                 <Link to='/signup' className='nav'>Create Account</Link> :
                 <Link to='/signin' className='nav'>Already have an Account</Link>
+            }
+            {
+                props.isLoading ? 
+                <Loader type='Bars' /> :
+                ''
             }
         </div>
     )
