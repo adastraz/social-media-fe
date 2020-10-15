@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
 import { Button, 
     Modal, 
     ModalHeader, 
@@ -23,6 +22,7 @@ import axiosWithAuth from '../../utils/axiosWithAuth'
 import Close from '../../styles/img/close.svg'
 import Delete from '../../styles/img/delete.svg'
 import Check from '../../styles/img/check.svg'
+import ListLikes from './ListLikes'
 
 const LoadComments = props => {
     const [current, setCurrent] = useState({})
@@ -30,10 +30,9 @@ const LoadComments = props => {
     const [modal, setModal] = useState(false)
     const [modald, setModald] = useState(false)
     const toggled = () => setModald(!modald)
-    // const [dropdownOpen, setOpen] = useState(false)
-    const location = useLocation()
     const toggle = () => setModal(!modal)
     const likedPostId = []
+
     const [newComment, setNewComment] = useState({
         comment: ''
     })
@@ -49,7 +48,7 @@ const LoadComments = props => {
                             .catch(err => console.log(err))
                 })
                 .catch(err => console.log(err))
-    },[])
+    }, [])
 
     props.userLikes.forEach(likedposts => {
         likedPostId.push(likedposts.post_id)
@@ -85,7 +84,6 @@ const LoadComments = props => {
     }
 
     const removeLikeHelper = post_id => {
-        // window.location.reload()
         props.removeLike1(props.user, post_id)
         likedPostId.filter(like => post_id !== like)
         setCurrent({ ...current, like_number: current.like_number-1 })
@@ -106,7 +104,7 @@ const LoadComments = props => {
                         <p>{current.created_at}</p>
                         <p>{current.img}</p>
                         
-                        <p>Likes: {current.like_number}</p>
+                        <ListLikes post={current} />
                         {current.user_id == props.user.id ?
                             <>
                                 <DropdownItem onClick={toggled}><img src={Delete} /></DropdownItem>

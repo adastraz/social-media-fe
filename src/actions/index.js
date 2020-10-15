@@ -92,10 +92,45 @@ export const followUser = (userid, friendid) => dispatch => {
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
 
+export const followUsername = (userid, friendid) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .post(`/api/friends/${userid}/byusername`, friendid)
+            .then(res => {
+                dispatch({ type: FETCHING_SUCCESS })
+                dispatch({ type: FETCHING_START })
+                axiosWithAuth()
+                    .get(`/api/friends/${userid}`)
+                        .then(res => {
+                            dispatch({ type: FETCHING_SUCCESS_FOLLOWING, payload: res.data })
+                        })
+                        .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+                        })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
 export const unfollowUser = (userid, friendid) => dispatch => {
     dispatch({ type: FETCHING_START })
     axiosWithAuth()
         .delete(`/api/friends/${userid}`, { data: friendid })
+            .then(res => {
+                console.log('TYLER ITS HERE', res, friendid, userid)
+                dispatch({ type: FETCHING_SUCCESS })
+                dispatch({ type: FETCHING_START })
+                axiosWithAuth()
+                    .get(`/api/friends/${userid}`)
+                        .then(res => {
+                            dispatch({ type: FETCHING_SUCCESS_FOLLOWING, payload: res.data })
+                        })
+                        .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+                        })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
+export const unfollowUsername = (userid, friendid) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .delete(`/api/friends/${userid}/byusername`, { data: friendid })
             .then(res => {
                 dispatch({ type: FETCHING_SUCCESS })
                 dispatch({ type: FETCHING_START })
@@ -294,7 +329,6 @@ export const removeComment1 = (commentid, post_id) => dispatch => {
         .delete(`/api/posts/${post_id}/comment`, {data: {comment_id: commentid}})
             .then(res => {
                 dispatch({ type: FETCHING_SUCCESS })
-                // window.location.reload()
                 })
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
