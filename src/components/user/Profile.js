@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, useLocation, Link } from 'react-router-dom'
 import { fetchUser, 
     getFollowing, 
     fetchUserPosts, 
@@ -24,13 +24,14 @@ import Loader from 'react-loader-spinner'
 const Profile = props => {
     const { id } = useParams()
     const likedPostId = []
+    const locationz = useLocation()
 
     useEffect(() => {
         props.fetchUser(id)
         props.fetchUserPosts(id)
         props.fetchUserLikes(id)
         props.getFollowing(id)
-    }, [])
+    }, [locationz.pathname])
 
     const [newPost, setNewPost] = useState({
         location: '',
