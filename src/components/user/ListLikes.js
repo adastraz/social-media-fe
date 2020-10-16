@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 import axiosWithAuth from '../../utils/axiosWithAuth'
-import { getFollowing, followUsername, unfollowUsername } from '../../actions'
+import { getFollowing, followUsername, unfollowUsername, redirectUser } from '../../actions'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Unfollow from '../../styles/img/user-remove.svg'
@@ -27,8 +27,18 @@ const ListLikes = props => {
     }, [])
 
     props.following.forEach(follow => {
-        followerNum.push(follow.id)
+        followerNum.push(follow.username)
     })
+
+    const histHelper = username => {
+        if (followerNum.includes(username)) {
+            props.redirectUser(username, 'friend', props.user)
+        } else if (username == props.user.username){
+            props.redirectUser(username, 'profile', props.user)
+        } else {
+            props.redirectUser(username, 'user', props.user)
+        }
+    }
 
     return (
         <Dropdown isOpen={dropdownOpen} toggle={toggle} id='listlikes'>
@@ -40,9 +50,11 @@ const ListLikes = props => {
                 <DropdownItem divider />
                 {likes.map(user => (
                     <>
-                        {followerNum.includes(user.id) ? 
+                        {followerNum.includes(user.like_username) ? 
                             <div classname='likeflex'>
-                                <Link to={`/friend/${user.id}`} classname='likename'>
+                                <Link
+                                onClick={() => histHelper(user.like_username)}
+                                classname='likename'>
                                     {user.like_username}
                                 </Link>
                                 <img 
@@ -53,16 +65,20 @@ const ListLikes = props => {
                                     onMouseOver={e => e.currentTarget.src='/static/media/user-remove.e0474d32.svg'}
                                 />
                             </div> : 
-                        props.user.id != user.id ?
+                        user.like_username == props.user.username ?
+                            <Link 
+                            onClick={() => histHelper(user.like_username)}
+                            classname='likename'>
+                                {user.like_username}
+                            </Link> :
                             <div classname='likeflex'>
-                                <Link to={`/user/${user.id}`} classname='likename'>
+                                <Link
+                                onClick={() => histHelper(user.like_username)}
+                                classname='likename'>
                                     {user.like_username}
                                 </Link>
                                 <img src={Follow} onClick={() => props.followUsername(props.user.id, {friend: user.like_username})} className='redfollow butbut'/>
-                            </div> :
-                            <Link to={`/user/${user.id}`} classname='likename'>
-                                {user.like_username}
-                            </Link>
+                            </div>
                         }
                     </>
                 ))}
@@ -81,4 +97,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getFollowing, followUsername, unfollowUsername })(ListLikes)
+export default connect(mapStateToProps, { getFollowing, followUsername, unfollowUsername, redirectUser })(ListLikes)

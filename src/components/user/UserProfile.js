@@ -18,6 +18,7 @@ const UserProfile = props => {
     const likedPostId = []
     const followingId = []
 
+    console.log('STATE IS HERRE TYLER THOMPSON', props.location.state)
     useEffect(() => {
         axiosWithAuth()
             .get(`/api/users/${id}`)

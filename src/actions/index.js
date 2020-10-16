@@ -11,6 +11,7 @@ export const FETCHING_SUCCESS_USERS = 'FETCHING_SUCCESS_USERS'
 export const DELETE_POSTS = 'DELETE_POSTS'
 export const FETCHING_SUCCESS_POSTS = 'FETCHING_SUCCESS_POSTS'
 export const FETCHING_SUCCESS_USERLIKES = 'FETCHING_SUCCESS_USERLIKES'
+export const FETCHING_SUCCESS_REDIRECT = 'FETCHING_SUCCESS_REDIRECT'
 
 export const login = creds => dispatch => {
     dispatch ({ type: FETCHING_START })
@@ -150,6 +151,25 @@ export const editProfile = (userid, updates) => dispatch => {
         .put(`/api/users/${userid}`, updates)
             .then(res => {
                 dispatch({ type: FETCHING_SUCCESS })
+            })
+            .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
+}
+
+export const redirectUser = (username, type, user) => dispatch => {
+    dispatch({ type: FETCHING_START })
+    axiosWithAuth()
+        .get(`/api/users/${username}/username`)
+            .then(res => {
+                history.push(`/${type}/${res.data[0].id}`)
+                window.location.reload()
+                dispatch({ type: FETCHING_SUCCESS_REDIRECT, payload: user })
+                // dispatch({ type: FETCHING_START })
+                // axiosWithAuth()
+                //     .get(`/api/users/${user.id}`)
+                //         .then(res => {
+                //             dispatch({ type: FETCHING_SUCCESS_LOGIN, payload: res.data})
+                //         })
+                //         .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
             })
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }

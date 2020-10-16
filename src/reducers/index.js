@@ -8,7 +8,8 @@ import {
     FETCHING_SUCCESS_USERS,
     DELETE_POSTS,
     FETCHING_SUCCESS_POSTS,
-    FETCHING_SUCCESS_USERLIKES
+    FETCHING_SUCCESS_USERLIKES,
+    FETCHING_SUCCESS_REDIRECT
 } from '../actions'
 
 const initialState = {
@@ -53,7 +54,8 @@ export const reducer = (state = initialState, action) => {
         case FETCHING_SUCCESS_FOLLOWING: 
             return{
                 ...state,
-                following: action.payload
+                following: action.payload,
+                isLoading: false
             }
         case FETCHING_SUCCESS_USERS:
             return {
@@ -77,6 +79,12 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 userLikes: action.payload
+            }
+        case FETCHING_SUCCESS_REDIRECT:
+            return {
+                ...state,
+                isLoading: false,
+                user: action.payload
             }
         default: 
         return state
