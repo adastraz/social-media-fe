@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Button, 
     Modal, 
     ModalHeader, 
@@ -15,7 +16,8 @@ import {
     addComment1,
     removeComment,
     removeComment1,
-    deletePost
+    deletePost,
+    getFollowing
 } from '../../actions'
 import { connect } from 'react-redux'
 import axiosWithAuth from '../../utils/axiosWithAuth'
@@ -35,6 +37,16 @@ const LoadComments = props => {
 
     const [newComment, setNewComment] = useState({
         comment: ''
+    })
+
+    const followerNum = []
+
+    useEffect(() => {
+        props.getFollowing(props.user.id)
+    }, [])
+
+    props.following.forEach(follow => {
+        followerNum.push(follow.username)
     })
 
     useEffect(() => {
@@ -63,9 +75,9 @@ const LoadComments = props => {
 
     const submitComment = e => {
         e.preventDefault()
-        props.addComment1({ comment: newComment.comment, comment_username: props.user.username }, current.id, props.user.id)
+        props.addComment1({ comment: newComment.comment, comment_username: props.user.username, user_id: props.user.id }, current.id)
         setComments([
-            ...comments, { comment: newComment.comment, comment_username: props.user.username, id: Date.now() }])
+            ...comments, { comment: newComment.comment, comment_username: props.user.username, id: Date.now(), user_id: props.user.id }])
         setNewComment({ comment: '' })
         setCurrent({ ...current, comment_number: current.comment_number+1 })
     }
@@ -125,14 +137,41 @@ const LoadComments = props => {
                     </ModalHeader>
                         <ModalBody>
                             {comments.map(comment => (
-                                <div key={comment.id}>
-                                    <h5>{comment.comment_username}</h5>
-                                    <p>{comment.comment}</p>
-                                    {comment.comment_username == props.user.username ? 
-                                        <img src={Close} onClick={() => removeCommentHelper(comment.id)} /> :
-                                        ''
+                                <>
+                                    {followerNum.includes(comment.comment_username) ? 
+                                        <div key={comment.id}>
+                                            <Link
+                                            to={`/friend/${comment.user_id}`}>
+                                                {comment.comment_username}
+                                            </Link>
+                                            <p>{comment.comment}</p>
+                                        </div> :
+                                    comment.comment_username == props.user.username ?
+                                        <div key={comment.id}>
+                                            <Link
+                                            to={`/profile/${comment.user_id}`}>
+                                                {comment.comment_username}
+                                            </Link>
+                                            <p>{comment.comment}</p>
+                                            <img src={Close} onClick={() => removeCommentHelper(comment.id)} />
+                                        </div> :
+                                        <div key={comment.id}>
+                                            <Link
+                                            to={`/user/${comment.user_id}`}>
+                                                {comment.comment_username}
+                                            </Link>
+                                            <p>{comment.comment}</p>
+                                        </div>
                                     }
-                                </div>
+                                </>
+                                // <div key={comment.id}>
+                                //     <h5>{comment.comment_username}</h5>
+                                //     <p>{comment.comment}</p>
+                                //     {comment.comment_username == props.user.username ? 
+                                //         <img src={Close} onClick={() => removeCommentHelper(comment.id)} /> :
+                                //         ''
+                                //     }
+                                // </div>
                             ))}
                         </ModalBody>
                         <ModalFooter>
@@ -166,4 +205,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { addLike, removeLike, removeLike1, addLike1, addComment, addComment1, removeComment, removeComment1, deletePost })(LoadComments)
+export default connect(mapStateToProps, { addLike, removeLike, removeLike1, addLike1, addComment, addComment1, removeComment, removeComment1, deletePost, getFollowing })(LoadComments)
