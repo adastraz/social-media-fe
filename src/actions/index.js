@@ -244,7 +244,7 @@ export const fetchUserLikes = userid => dispatch => {
 export const addLike = (user, post_id) => dispatch => {
     dispatch({ type: FETCHING_START })
     axiosWithAuth()
-        .post(`/api/posts/${post_id}/like`, {like_username: user.username})
+        .post(`/api/posts/${post_id}/like`, {like_username: user.username, user_id: user.id})
             .then(res => {
                 dispatch({ type: FETCHING_SUCCESS })
                 dispatch({ type: FETCHING_START })
@@ -280,7 +280,7 @@ export const removeLike = (user, post_id) => dispatch => {
 export const addLike1 = (user, post_id) => dispatch => {
     dispatch({ type: FETCHING_START })
     axiosWithAuth()
-        .post(`/api/posts/${post_id}/like`, {like_username: user.username})
+        .post(`/api/posts/${post_id}/like`, {like_username: user.username, user_id: user.id})
             .then(res => {
                 dispatch({ type: FETCHING_SUCCESS })
                 dispatch({ type: FETCHING_START })

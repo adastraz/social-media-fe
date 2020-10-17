@@ -30,16 +30,6 @@ const ListLikes = props => {
         followerNum.push(follow.username)
     })
 
-    const histHelper = username => {
-        if (followerNum.includes(username)) {
-            props.redirectUser(username, 'friend', props.user)
-        } else if (username == props.user.username){
-            props.redirectUser(username, 'profile', props.user)
-        } else {
-            props.redirectUser(username, 'user', props.user)
-        }
-    }
-
     return (
         <Dropdown isOpen={dropdownOpen} toggle={toggle} id='listlikes'>
             <DropdownToggle id='listlikes' className='listlikes2'>
@@ -53,7 +43,7 @@ const ListLikes = props => {
                         {followerNum.includes(user.like_username) ? 
                             <div classname='likeflex'>
                                 <Link
-                                onClick={() => histHelper(user.like_username)}
+                                to={`/friend/${user.user_id}`}
                                 classname='likename'>
                                     {user.like_username}
                                 </Link>
@@ -67,13 +57,13 @@ const ListLikes = props => {
                             </div> : 
                         user.like_username == props.user.username ?
                             <Link 
-                            onClick={() => histHelper(user.like_username)}
+                            to={`/profile/${props.user.id}`}
                             classname='likename'>
                                 {user.like_username}
                             </Link> :
                             <div classname='likeflex'>
                                 <Link
-                                onClick={() => histHelper(user.like_username)}
+                                to={`/user/${user.user_id}`}
                                 classname='likename'>
                                     {user.like_username}
                                 </Link>
