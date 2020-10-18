@@ -172,6 +172,13 @@ const SignIn = props => {
                         <button onClick={() => props.clearError()}>Ok</button>
                     </ul>
                 } */}
+                {props.error != null ? 
+                    location.pathname == '/signup' ?
+                        <p className='red'>Username may be taken</p> :
+                        <p className='red'>Username or Password may be incorrect</p>
+                    :
+                    ''
+                }
             </form>
             {location.pathname == '/signin' ? 
                 <Link to='/signup' className='nav'>Create Account</Link> :
