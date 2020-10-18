@@ -133,7 +133,10 @@ const SignIn = props => {
                             value={user.birthdate}
                             placeholder='Birthday'
                         />
-                        <button type='submit'>Sign Up</button>
+                        {unmatching && length && number && special && letter ?
+                            <button type='submit'>Sign Up</button> :
+                            <a className='red'>Requirements not met</a>
+                        }
                     </> 
                 }
                 {length ?
