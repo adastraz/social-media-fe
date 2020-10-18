@@ -149,7 +149,7 @@ const SignIn = props => {
                 }
                 {special ?
                     <p className='green'>Has at least 1 special character</p> : 
-                    <p className='red'>Must have at least one special character</p>
+                    <p className='red'>Must have at least one special character [#?!@$%^&-]</p>
                 }
                 {letter ?
                     <p className='green'>Has at least 1 letter</p> : 
