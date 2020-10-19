@@ -6,6 +6,7 @@
     border-radius: 2rem;
     max-height: 250px;
     overflow-y:auto;
+    margin-top: -75px
 }
 
 ::-webkit-scrollbar {
@@ -85,4 +86,8 @@
 
 .titlesides{
     margin-left: 12.5%
+}
+
+#sidelc{
+    width: 100%;
 }

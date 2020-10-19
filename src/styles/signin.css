@@ -28,8 +28,9 @@
     transition: all 0.3s ease-in-out;
 }
 
-.home{
-    margin-bottom: 3rem
+#nav {
+    text-decoration: none;
+    margin-bottom: .5rem;
 }
 
 .nav:hover:before {
@@ -51,5 +52,10 @@
 
 .red{
     color: red;
+    margin: 0 auto
+}
+
+.green{
+    color: green;
     margin: 0 auto
 }

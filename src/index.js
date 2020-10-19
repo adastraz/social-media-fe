@@ -7,12 +7,16 @@ import thunk from 'redux-thunk'
 import logger from  'redux-logger'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { reducer } from './reducers'
+import { BrowserRouter as Router } from 'react-router-dom'
+import history from './utils/history'
 
 const store = createStore(reducer, applyMiddleware(thunk, logger))
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router history={history}>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById('root')
 )

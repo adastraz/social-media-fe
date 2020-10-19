@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, useLocation, Link } from 'react-router-dom'
 import { fetchUser, 
     getFollowing, 
     fetchUserPosts, 
@@ -19,17 +19,19 @@ import LoadComments from './LoadComments.js'
 import '../../styles/signin.css'
 import '../../styles/post.css'
 import '../../styles/profile.css'
+import Loader from 'react-loader-spinner'
 
 const Profile = props => {
     const { id } = useParams()
     const likedPostId = []
+    const locationz = useLocation()
 
     useEffect(() => {
         props.fetchUser(id)
         props.fetchUserPosts(id)
         props.fetchUserLikes(id)
         props.getFollowing(id)
-    }, [])
+    }, [locationz.pathname])
 
     const [newPost, setNewPost] = useState({
         location: '',
@@ -85,18 +87,19 @@ const Profile = props => {
             <div className='profilecontainer'>
                 <h1>{props.user.username}</h1>
                 <form onSubmit={submitForm} className='postform'>
-                    <input 
+                    <textarea
                         id='post'
-                        type='textbox'
                         name='post'
                         value={newPost.post}
                         placeholder="What's on your mind?"
                         onChange={handleChanges}
+                        className='postpost'
                     />
                     {!location ? 
                         <p onClick={() => setLocation(!img)}>Location</p> :
                         <>
                             <input
+                                className='locationlocation'
                                 id='location'
                                 type='text'
                                 name='location'
@@ -112,6 +115,7 @@ const Profile = props => {
                         <p onClick={() => setImg(!img)}>Image</p> :
                         <>
                             <input
+                                className='locationlocation'
                                 id='img'
                                 type='text'
                                 name='img'
@@ -128,39 +132,28 @@ const Profile = props => {
                     <About />
                     <div className='posts'>
                     <h1>Posts</h1>
+                    {
+                        props.isLoading ? 
+                        <Loader type='Bars' /> :
+                        ''
+                    }
                     {props.posts.length > 0 ?
                         <div className='postscont'>
-                            {props.posts.map(post => {
-                                let postthing = `${post.id}`
-                                return (
+                            {props.posts.map(post => (
                                 <div key={post.id} className='borderPosts'>
                                     <p>{post.post}</p>
                                     <p>{post.location}</p>
                                     <p>{post.created_at}</p>
                                     <p>{post.img}</p>
-                                    {/* comments */}
-                                    {/* <p onClick={() => props.history.push(`/post/${post.id}`, props.user.id)}>Load comments... [{post.comment_number}]</p> */}
-                                    <LoadComments post={post}/>
+                                    <LoadComments post={post} sidebar={false} username={props.user.username}/>
                                     <ListLikes post={post} /> 
-                                    <PostChooser post={post}/>
+                                    <PostChooser post={post} />
                                     {!likedPostId.includes(post.id) ? 
                                         <a className='like' onClick={() => addLikeHelper(post.id)}>Like</a> :
                                         <a className='unlike' onClick={() => removeLikeHelper(post.id)}>Unlike</a>
                                     }
-                                    {/* <form onSubmit={() => submitComment(post.id)}>
-                                        <input
-                                            type='text'
-                                            name={postthing}
-                                            data-id={parseInt(postthing)}
-                                            id={postthing}
-                                            className='comment'
-                                            placeholder='Write a comment...'
-                                            onChange={handleChangesCom}
-                                        />
-                                        <button type='submit'>post</button>
-                                    </form> */}
                                 </div>
-                            )})}
+                            ))}
                         </div> :
                         <p>No posts to display</p>
                     }
