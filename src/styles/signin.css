@@ -28,8 +28,9 @@
     transition: all 0.3s ease-in-out;
 }
 
-.home{
-    margin-bottom: 3rem
+#nav {
+    text-decoration: none;
+    margin-bottom: .5rem;
 }
 
 .nav:hover:before {

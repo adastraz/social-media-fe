@@ -160,7 +160,7 @@ const UserProfile = props => {
                                         <p>{post.location}</p>
                                         <p>{post.created_at}</p>
                                         <p>{post.img}</p>
-                                        <LoadComments post={post}/>
+                                        <LoadComments post={post} sidebar={false} username={currentUser.username}/>
                                         <ListLikes post={post} /> 
                                         {!likedPostId.includes(post.id) ? 
                                             <a className='like' onClick={() => props.addLike1(props.user, post.id)}>Like</a> :

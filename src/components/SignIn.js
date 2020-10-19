@@ -93,7 +93,7 @@ const SignIn = props => {
 
     return (
         <div className='signDiv'>
-            <Link to='/' className='nav home'>Home</Link>
+            <Link to='/' id='nav' className='nav home'>Home</Link>
             <form onSubmit={submitForm}>
                 <input 
                     className='signin'
@@ -181,8 +181,8 @@ const SignIn = props => {
                 }
             </form>
             {location.pathname == '/signin' ? 
-                <Link to='/signup' className='nav'>Create Account</Link> :
-                <Link to='/signin' className='nav'>Already have an Account</Link>
+                <Link to='/signup' id='nav' className='nav'>Create Account</Link> :
+                <Link to='/signin' id='nav' className='nav'>Already have an Account</Link>
             }
             {
                 props.isLoading ? 

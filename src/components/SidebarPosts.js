@@ -54,18 +54,18 @@ const SidebarPosts = props => {
                                 <div className='postssidebar'>
                                     {post.user_id == props.user.id ? 
                                         <Link to={`/profile/${post.user_id}`}>
-                                            <h4 className='sidebar'>{post.username}</h4>
+                                            <p className='sidebar'>{post.username}</p>
                                         </Link> :
                                     usersFollowing.includes(post.user_id) ?
                                         <Link to={`/friend/${post.user_id}`}>
-                                            <h4 className='sidebar'>{post.username}</h4>
+                                            <p className='sidebar'>{post.username}</p>
                                         </Link> :
                                         <Link to={`/user/${post.user_id}`}>
-                                            <h4 className='sidebar'>{post.username}</h4>
+                                            <p className='sidebar'>{post.username}</p>
                                         </Link>
                                     }
-                                    <LoadComments post={post} sidebar={true} />
-                                    <h7>{post.created_at}</h7>
+                                    <LoadComments post={post} sidebar={true} username={post.username}/>
+                                    <p>{post.created_at}</p>
                                 </div>
                             </div> 
                         )) :

@@ -111,6 +111,7 @@ const LoadComments = props => {
             <Modal isOpen={modal} toggle={toggle}>
                 <div key={current.id} className='explore'>
                     <ModalHeader>
+                        <p>{props.username}</p>
                         <p>{current.post}</p>
                         <p>{current.location}</p>
                         <p>{current.created_at}</p>
@@ -176,9 +177,9 @@ const LoadComments = props => {
                         </ModalBody>
                         <ModalFooter>
                             <form onSubmit={submitComment}>
-                                <input
+                                <textarea
+                                    className='commentcomment'
                                     id='comment'
-                                    type='textbox'
                                     name='comment'
                                     value={newComment.comment}
                                     placeholder='Comment on post'

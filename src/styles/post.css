@@ -8,7 +8,28 @@
     text-align: center;
     margin: 0 auto;
     padding: 1.25rem;
-    border-radius: 2rem
+    border-radius: 2rem;
+}
+.postpost{
+    min-width: 90%;
+    box-sizing: border-box;
+    max-width: 90%;
+    min-height: 3rem;
+    max-height: 10rem;
+    resize: grabber;
+    padding: .25rem 1rem
+}
+.locationlocation{
+    width: 90%;
+}
+
+.commentcomment{
+    min-width: 24rem;
+    box-sizing: border-box;
+    max-width: 24rem;
+    min-height: 5rem;
+    max-height: 10rem;
+    padding: .25rem 1rem
 }
 
 .postabout{

@@ -17,39 +17,39 @@ const Header = props => {
     return (
         <>
             {location.pathname === '/following' ? 
-                <>
-                    <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
-                    <Link to='/explore' className='nav'>Explore</Link>
-                    <a onClick={() => logout()} className='nav'>Logout</a>
-                </> :
+                <div className='head'>
+                    <Link to={`/profile/${props.user.id}`} id='nav' className='nav'>Profile</Link>
+                    <Link to='/explore' id='nav' className='nav'>Explore</Link>
+                    <Link onClick={() => logout()} className='nav'>Logout</Link>
+                </div> :
                 location.pathname === '/explore' ?
-                <>
-                    <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
-                    <a onClick={() => logout()} className='nav'>Logout</a>
-                </> :
+                <div className='head'>
+                    <Link to={`/profile/${props.user.id}`} id='nav' className='nav'>Profile</Link>
+                    <Link onClick={() => logout()} id='nav' className='nav'>Logout</Link>
+                </div> :
                 location.pathname.includes('profile') ?
-                <>
-                    <Link to='/explore' className='nav'>Explore</Link>
-                    <a onClick={() => logout()} className='nav'>Logout</a>
-                </> :
+                <div className='head'>
+                    <Link to='/explore' id='nav' className='nav'>Explore</Link>
+                    <Link onClick={() => logout()} id='nav' className='nav'>Logout</Link>
+                </div> :
                 location.pathname.includes('friend') ?
-                <>  
-                    <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
-                    <Link to='/explore' className='nav'>Explore</Link>
-                    <a onClick={() => logout()} className='nav'>Logout</a>
-                </> :
+                <div className='head'>  
+                    <Link to={`/profile/${props.user.id}`} id='nav' className='nav'>Profile</Link>
+                    <Link to='/explore' id='nav' className='nav'>Explore</Link>
+                    <Link id='nav' onClick={() => logout()} className='nav'>Logout</Link>
+                </div> :
                 location.pathname.includes('user') ?
-                <>  
-                    <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
-                    <Link to='/explore' className='nav'>Explore</Link>
-                    <a onClick={() => logout()} className='nav'>Logout</a>
-                </> :
+                <div className='head'>  
+                    <Link to={`/profile/${props.user.id}`} id='nav' className='nav'>Profile</Link>
+                    <Link to='/explore' id='nav' className='nav'>Explore</Link>
+                    <Link id='nav' onClick={() => logout()} className='nav'>Logout</Link>
+                </div> :
                 location.pathname.includes('post') ?
-                <>  
-                    <Link to={`/profile/${props.user.id}`} className='nav'>Profile</Link>
-                    <Link to='/explore' className='nav'>Explore</Link>
-                    <a onClick={() => logout()} className='nav'>Logout</a>
-                </> :
+                <div className='head'>  
+                    <Link to={`/profile/${props.user.id}`} id='nav' className='nav'>Profile</Link>
+                    <Link to='/explore' id='nav' className='nav'>Explore</Link>
+                    <Link id='nav' onClick={() => logout()} className='nav'>Logout</Link>
+                </div> :
                 ''
             }
         </>

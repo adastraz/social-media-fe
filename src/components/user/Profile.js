@@ -87,18 +87,19 @@ const Profile = props => {
             <div className='profilecontainer'>
                 <h1>{props.user.username}</h1>
                 <form onSubmit={submitForm} className='postform'>
-                    <input 
+                    <textarea
                         id='post'
-                        type='textbox'
                         name='post'
                         value={newPost.post}
                         placeholder="What's on your mind?"
                         onChange={handleChanges}
+                        className='postpost'
                     />
                     {!location ? 
                         <p onClick={() => setLocation(!img)}>Location</p> :
                         <>
                             <input
+                                className='locationlocation'
                                 id='location'
                                 type='text'
                                 name='location'
@@ -114,6 +115,7 @@ const Profile = props => {
                         <p onClick={() => setImg(!img)}>Image</p> :
                         <>
                             <input
+                                className='locationlocation'
                                 id='img'
                                 type='text'
                                 name='img'
@@ -143,7 +145,7 @@ const Profile = props => {
                                     <p>{post.location}</p>
                                     <p>{post.created_at}</p>
                                     <p>{post.img}</p>
-                                    <LoadComments post={post} sidebar={false}/>
+                                    <LoadComments post={post} sidebar={false} username={props.user.username}/>
                                     <ListLikes post={post} /> 
                                     <PostChooser post={post} />
                                     {!likedPostId.includes(post.id) ? 

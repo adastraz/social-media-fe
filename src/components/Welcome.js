@@ -7,8 +7,8 @@ const Welcome = () => {
         <div className='welcomeDiv'>
             <h1>Social Media Clone</h1>
             <div>
-                <Link to='/signin' className='nav'>Sign In</Link>
-                <Link to='/signup' className='nav'>Sign Up</Link>
+                <Link to='/signin' id='nav' className='nav'>Sign In</Link>
+                <Link to='/signup' id='nav' className='nav'>Sign Up</Link>
             </div>
         </div>
     )
