@@ -12,7 +12,7 @@ import {
     removeComment
 } from '../../actions'
 import axiosWithAuth from '../../utils/axiosWithAuth.js'
-import SidebarFollowing from '../SidebarFollowing.js'
+import SidebarFollowing from '../sidebar/SidebarFollowing.js'
 
 const Post = props => {
     const { id } = useParams()

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import '../styles/sidebar.css'
-import { unfollowUser } from '../actions'
-import axiosWithAuth from '../utils/axiosWithAuth'
-import LoadComments from './user/LoadComments'
+import '../../styles/sidebar.css'
+import { unfollowUser } from '../../actions'
+import axiosWithAuth from '../../utils/axiosWithAuth'
+import LoadComments from '../helpers/LoadComments'
 
 const SidebarPosts = props => {
     const [hide, setHide] = useState(false)

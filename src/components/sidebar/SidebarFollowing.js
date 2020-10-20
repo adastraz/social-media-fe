@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import '../styles/sidebar.css'
-import { getFollowing, fetchUser, unfollowUser } from '../actions'
+import '../../styles/sidebar.css'
+import { getFollowing, fetchUser, unfollowUser } from '../../actions'
 import SidebarPosts from './SidebarPosts.js'
-import Unfollow from '../styles/img/user-remove.svg'
-import User from '../styles/img/user.svg'
+import Unfollow from '../../styles/img/user-remove.svg'
+import User from '../../styles/img/user.svg'
 
 const SidebarFollowing = props => {
     const [hide, setHide] = useState(false)
