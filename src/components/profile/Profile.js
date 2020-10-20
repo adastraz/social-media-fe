@@ -11,11 +11,11 @@ import { fetchUser,
     removeLike,
     addComment
 } from '../../actions'
-import PostChooser from './PostChooser'
+import PostChooser from '../helpers/PostChooser'
 import About from './About.js'
-import SidebarFollowing from '../SidebarFollowing.js'
-import ListLikes from './ListLikes.js'
-import LoadComments from './LoadComments.js'
+import SidebarFollowing from '../sidebar/SidebarFollowing.js'
+import ListLikes from '../helpers/ListLikes.js'
+import LoadComments from '../helpers/LoadComments.js'
 import '../../styles/signin.css'
 import '../../styles/post.css'
 import '../../styles/profile.css'

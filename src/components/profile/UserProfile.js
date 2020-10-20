@@ -3,10 +3,10 @@ import { fetchUserPosts, addLike1, removeLike1, postPost1, fetchUser, followUser
 import { connect } from 'react-redux'
 import axiosWithAuth from '../../utils/axiosWithAuth'
 import { useLocation, useParams, Link } from 'react-router-dom'
-import SidebarFollowing from '../SidebarFollowing.js'
+import SidebarFollowing from '../sidebar/SidebarFollowing.js'
 import OtherAbout from './OtherAbout'
-import ListLikes from './ListLikes'
-import LoadComments from './LoadComments'
+import ListLikes from '../helpers/ListLikes'
+import LoadComments from '../helpers/LoadComments'
 import Unfollow from '../../styles/img/user-remove.svg'
 import User from '../../styles/img/user.svg'
 import Follow from '../../styles/img/user-add.svg'
@@ -151,36 +151,25 @@ const UserProfile = props => {
                         <OtherAbout />
                         <div className='posts'>
                             <h1>Posts</h1>
-                            <div>
-                                {props.posts.map(post => {
-                                    let postthing = `${post.id}`
-                                    return (
-                                    <div>
-                                        <p>{post.post}</p>
-                                        <p>{post.location}</p>
-                                        <p>{post.created_at}</p>
-                                        <p>{post.img}</p>
-                                        <LoadComments post={post} sidebar={false} username={currentUser.username}/>
-                                        <ListLikes post={post} /> 
-                                        {!likedPostId.includes(post.id) ? 
-                                            <a className='like' onClick={() => props.addLike1(props.user, post.id)}>Like</a> :
-                                            <a className='unlike' onClick={() => props.removeLike1(props.user, post.id)}>Unlike</a>
-                                        }
-                                        {/* <form onSubmit={submitComment}>
-                                            <input
-                                                type='text'
-                                                name={postthing}
-                                                data-id={parseInt(postthing)}
-                                                id={postthing}
-                                                className='comment'
-                                                placeholder='Write a comment...'
-                                                onChange={handleChangesCom}
-                                            />
-                                            <button type='submit'>post</button>
-                                        </form> */}
-                                    </div>
-                                )})}
-                            </div>
+                            {props.posts.length > 0 ?
+                                <div>
+                                    {props.posts.map(post => (
+                                        <div>
+                                            <p>{post.post}</p>
+                                            <p>{post.location}</p>
+                                            <p>{post.created_at}</p>
+                                            <p>{post.img}</p>
+                                            <LoadComments post={post} sidebar={false} username={currentUser.username}/>
+                                            <ListLikes post={post} /> 
+                                            {!likedPostId.includes(post.id) ? 
+                                                <a className='like' onClick={() => props.addLike1(props.user, post.id)}>Like</a> :
+                                                <a className='unlike' onClick={() => props.removeLike1(props.user, post.id)}>Unlike</a>
+                                            }
+                                        </div>
+                                    ))}
+                                </div> :
+                                <p>No posts to display</p>    
+                            }
                         </div>
                     </div>
                 </div>

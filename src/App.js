@@ -5,11 +5,11 @@ import history from './utils/history'
 import Welcome from './components/Welcome.js'
 import SignIn from './components/SignIn.js'
 import ListFollowing from './components/followers/ListFollowing.js'
-import Profile from './components/user/Profile.js'
-import ListUsers from './components/user/ListUsers.js'
+import Profile from './components/profile/Profile.js'
+import ListUsers from './components/helpers/ListUsers.js'
 import Header from './components/Header.js'
-import UserProfile from './components/user/UserProfile.js'
-import Post from './components/user/Post.js'
+import UserProfile from './components/profile/UserProfile.js'
+import Post from './components/helpers/Post.js'
 
 function App() {
   return (
