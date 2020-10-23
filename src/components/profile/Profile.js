@@ -123,6 +123,12 @@ const Profile = props => {
                                 placeholder='Image link'
                                 onChange={handleChanges}
                             />
+                            {newPost.img != '' ?
+                                <>
+                                    <img src={newPost.img} className='postimage' />
+                                </> :
+                                ''
+                            }
                             <button onClick={() => setImg(!img)}>Cancel</button>
                         </>
                     }
@@ -144,7 +150,10 @@ const Profile = props => {
                                     <p>{post.post}</p>
                                     <p>{post.location}</p>
                                     <p>{post.created_at}</p>
-                                    <p>{post.img}</p>
+                                    {post.img.length > 10 ? 
+                                        <img src={post.img} className='postimage'/> :
+                                        <p>{post.img}</p>
+                                    }
                                     <LoadComments post={post} sidebar={false} username={props.user.username}/>
                                     <ListLikes post={post} /> 
                                     <PostChooser post={post} />

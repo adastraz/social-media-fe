@@ -42,7 +42,21 @@ const PostChooser = props => {
 
     const submitForm = e => {
         e.preventDefault()
-        props.editPost(props.post.id, newPost)
+        if (newPost.post == '' && newPost.location == '' && newPost.img != ''){
+            props.editPost(props.post.id, {...props.post, img: newPost.img })
+        } else if (newPost.post == '' && newPost.location != '' && newPost.img == ''){
+            props.editPost(props.post.id, {...props.post, location: newPost.location })
+        }else if (newPost.post != '' && newPost.location == '' && newPost.img == ''){
+            props.editPost(props.post.id, {...props.post, post: newPost.post })
+        }else if (newPost.post != '' && newPost.location != '' && newPost.img == ''){
+            props.editPost(props.post.id, {...props.post, post: newPost.post, location: newPost.location })
+        }else if (newPost.post != '' && newPost.location == '' && newPost.img != ''){
+            props.editPost(props.post.id, {...props.post, post: newPost.post, img: newPost.img })
+        }else if (newPost.post == '' && newPost.location != '' && newPost.img != ''){
+            props.editPost(props.post.id, {...props.post, location: newPost.location, img: newPost.img })
+        } else {
+            props.editPost(props.post.id, newPost)
+        }
     }
 
     return (
@@ -59,7 +73,10 @@ const PostChooser = props => {
                             <p>{props.post.post}</p>
                             <p>{props.post.location}</p>
                             <p>{props.post.created_at}</p>
-                            <p>{props.post.img}</p>
+                            {props.post.img != '' ? 
+                                <img src={props.post.img} className='postimage'/> :
+                                ''
+                            }
                         </div>
                         <form onSubmit={submitForm} >
                             <input 
@@ -96,6 +113,12 @@ const PostChooser = props => {
                                         placeholder='Image link'
                                         onChange={handleChanges}
                                     />
+                                    {newPost.img != '' ?
+                                        <>
+                                            <img src={newPost.img} className='postimage' />
+                                        </> :
+                                        ''
+                                    }
                                     <button onClick={() => setImg(!img)}>Cancel</button>
                                 </>
                             }

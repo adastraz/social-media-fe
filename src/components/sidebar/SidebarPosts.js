@@ -77,7 +77,7 @@ const SidebarPosts = props => {
                                         <h4 className='sidebar'>{post.username}</h4>
                                     </Link>
                                     <a>{post.created_at}</a>
-                                    <LoadComments post={post} />
+                                    <LoadComments post={post} sidebar={true} username={post.username}/>
                                 </div>
                             </div> 
                         )) :

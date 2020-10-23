@@ -151,6 +151,7 @@ export const editProfile = (userid, updates) => dispatch => {
         .put(`/api/users/${userid}`, updates)
             .then(res => {
                 dispatch({ type: FETCHING_SUCCESS })
+                window.location.reload()
             })
             .catch(err => dispatch({ type: FETCHING_ERROR, payload: err }))
 }
