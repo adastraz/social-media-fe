@@ -41,10 +41,6 @@ const LoadComments = props => {
 
     const followerNum = []
 
-    useEffect(() => {
-        props.getFollowing(props.user.id)
-    }, [])
-
     props.following.forEach(follow => {
         followerNum.push(follow.username)
     })
@@ -165,14 +161,6 @@ const LoadComments = props => {
                                         </div>
                                     }
                                 </>
-                                // <div key={comment.id}>
-                                //     <h5>{comment.comment_username}</h5>
-                                //     <p>{comment.comment}</p>
-                                //     {comment.comment_username == props.user.username ? 
-                                //         <img src={Close} onClick={() => removeCommentHelper(comment.id)} /> :
-                                //         ''
-                                //     }
-                                // </div>
                             ))}
                         </ModalBody>
                         <ModalFooter>

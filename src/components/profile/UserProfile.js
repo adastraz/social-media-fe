@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { fetchUserPosts, addLike1, removeLike1, postPost1, fetchUser, followUser, unfollowUser, addComment1 } from '../../actions'
+import { fetchUserPosts, 
+    addLike1, 
+    removeLike1, 
+    postPost1, 
+    fetchUser, 
+    followUser, 
+    unfollowUser, 
+    addComment1 } from '../../actions'
 import { connect } from 'react-redux'
 import axiosWithAuth from '../../utils/axiosWithAuth'
 import { useLocation, useParams, Link } from 'react-router-dom'
@@ -36,16 +43,12 @@ const UserProfile = props => {
     const [newPost, setNewPost] = useState({
         location: '',
         post: '',
-        img: ''
-    })
-
-    const [newComment, setNewComment] = useState({
-        comment: ''
+        img: '',
+        // file: ''
     })
 
     const [img, setImg] = useState(false)
     const [plocation, psetLocation] = useState(false) 
-    const [post_id, setPost_id] = useState(0)
 
     const handleChanges = e => {
         setNewPost({
@@ -54,26 +57,26 @@ const UserProfile = props => {
         })
     }
 
-    const handleChangesCom = e => {
-        setNewComment({
-            ...newComment,
-            [e.target.className]: e.target.value
-        })
-        setPost_id(parseInt(e.target.name))
-        console.log(post_id)
-    }
-
     const submitForm = e => {
         e.preventDefault()
         props.postPost1(props.user.id, {...newPost, user_id: props.user.id})
+        console.log(newPost)
         setNewPost({
             location: '',
             post: '',
-            img: ''
+            img: '',
+            // file: ''
         })
         setImg(false)
         psetLocation(false)
     }
+
+    // const handleChangesFile = e => {
+    //     setNewPost({
+    //         ...newPost,
+    //         file: e.target.files[0]
+    //     })
+    // }
 
     props.userLikes.forEach(likedposts => {
         likedPostId.push(likedposts.post_id)
@@ -82,14 +85,6 @@ const UserProfile = props => {
     props.following.forEach(follow => {
         followingId.push(follow.id)
     })  
-
-    const submitComment = e => {
-        e.preventDefault()
-        props.addComment1({ comment: newComment.comment, comment_username: props.user.username }, post_id, props.user.id)
-        setNewComment({ comment: '' })
-        console.log(e.target)
-        alert('your comment was posted successfully')
-    }
 
     return (
         <>
@@ -107,7 +102,12 @@ const UserProfile = props => {
                         /> :
                         <img src={Follow} className='redfollow' onClick={() => props.followUser(props.user.id, {friend: currentUser.id})} />
                     }
-                    <form onSubmit={submitForm} className='postform'>
+                    <form 
+                        onSubmit={submitForm} 
+                        className='postform' 
+                        // enctype="multipart/form-data" 
+                        // action="/upload"
+                    >
                         <input 
                             id='post'
                             type='textbox'
@@ -116,6 +116,16 @@ const UserProfile = props => {
                             placeholder="What's on your mind?"
                             onChange={handleChanges}
                         />
+                        {/* <input 
+                            id='file'
+                            type='file'
+                            name='file'
+                            onChange={handleChangesFile}
+                        />
+                        {newPost != '' ? 
+                            <img src={newPost.file.name} /> :
+                            ''
+                        } */}
                         {!plocation ? 
                             <p onClick={() => psetLocation(!img)}>Location</p> :
                             <>
@@ -190,4 +200,11 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUserPosts, addLike1, removeLike1, postPost1, fetchUser, followUser, unfollowUser, addComment1 })(UserProfile)
+export default connect(mapStateToProps, { fetchUserPosts, 
+    addLike1, 
+    removeLike1, 
+    postPost1, 
+    fetchUser, 
+    followUser, 
+    unfollowUser, 
+    addComment1 })(UserProfile)

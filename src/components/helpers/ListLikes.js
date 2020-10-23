@@ -20,11 +20,8 @@ const ListLikes = props => {
                     setLikes(res.data)
                 })
     },[])
-    const followerNum = []
 
-    useEffect(() => {
-        props.getFollowing(props.user.id)
-    }, [])
+    const followerNum = []
 
     props.following.forEach(follow => {
         followerNum.push(follow.username)

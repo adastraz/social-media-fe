@@ -18,9 +18,9 @@ const SidebarFollowing = props => {
         }))
     }, [search])
 
-    useEffect(() => {
-        props.fetchUser(props.user.id)
-    }, [])
+    // useEffect(() => {
+    //     props.fetchUser(props.user.id)
+    // }, [])
 
     return (
         <div className='fullbar'>
