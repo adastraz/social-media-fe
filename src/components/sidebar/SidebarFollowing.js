@@ -60,7 +60,7 @@ const SidebarFollowing = props => {
                             <div className='sidebarflex'>
                                 <div className='userssidebar'>
                                     <Link to={`/friend/${follow.id}`}>
-                                        <h4 className='sidebar'>{follow.username}</h4>
+                                        <p className='sidebar'>{follow.username}</p>
                                     </Link>
                                     <img src={User} className='sidebar blueunfollow'onClick={() => props.unfollowUser(props.user.id, {friend: follow.id})} />
                                 </div>
