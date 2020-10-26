@@ -41,10 +41,6 @@ const LoadComments = props => {
 
     const followerNum = []
 
-    useEffect(() => {
-        props.getFollowing(props.user.id)
-    }, [])
-
     props.following.forEach(follow => {
         followerNum.push(follow.username)
     })
@@ -104,7 +100,12 @@ const LoadComments = props => {
     return (
         <div>
             {props.sidebar ?
-                <Button color="info" id='sidelc' onClick={toggle}>{props.post.post}</Button> :
+                <Button color="info" id='sidelc' onClick={toggle}>
+                    <p>{props.post.post}</p>
+                    {props.post.img != '' ?
+                        <img className='postimage2' src={props.post.img} /> : ''
+                    }
+                </Button> :
                 <Button color="danger" onClick={toggle}>Load Comments... [{current.comment_number}]</Button>
             }
             
@@ -115,8 +116,10 @@ const LoadComments = props => {
                         <p>{current.post}</p>
                         <p>{current.location}</p>
                         <p>{current.created_at}</p>
-                        <p>{current.img}</p>
-                        
+                        {current.img != '' ? 
+                            <img src={current.img} className='postimage'/> :
+                            ''
+                        }
                         <ListLikes post={current} />
                         {current.user_id == props.user.id ?
                             <>
@@ -165,14 +168,6 @@ const LoadComments = props => {
                                         </div>
                                     }
                                 </>
-                                // <div key={comment.id}>
-                                //     <h5>{comment.comment_username}</h5>
-                                //     <p>{comment.comment}</p>
-                                //     {comment.comment_username == props.user.username ? 
-                                //         <img src={Close} onClick={() => removeCommentHelper(comment.id)} /> :
-                                //         ''
-                                //     }
-                                // </div>
                             ))}
                         </ModalBody>
                         <ModalFooter>

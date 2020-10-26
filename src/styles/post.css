@@ -64,3 +64,17 @@
 #listlikes:hover{
     color: black
 }
+
+.postimage{
+    max-width: 400px;
+    max-height: 400px;
+    border-radius: 1rem;
+    margin: 0 0 1rem 0
+}
+
+.postimage2{
+    max-width: 85%;
+    max-height: 200px;
+    margin: 0 0 1rem 0;
+    border-radius: 1rem
+}
