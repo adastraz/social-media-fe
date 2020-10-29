@@ -54,6 +54,12 @@
     width: 75%;
     margin: 0 15% 0 0 
 }
+@media screen and (max-width: 1100px){
+    .profilecontainer{
+        width: 100%;
+        margin: 0
+    }
+}
 
 .sidebar{
     display: flex;
@@ -78,6 +84,16 @@
     margin: 2rem auto;
     padding: 1.25rem;
     border-radius: 2rem
+}
+@media screen and (max-width: 850px){
+    .explore{
+        width: 100%
+    }
+}
+@media screen and (max-width: 550px){
+    .explore{
+        width: 500px;
+    }
 }
 
 .redfollow{
@@ -108,7 +124,6 @@
     position: absolute;
     right: 25px
 }
-
 .head{
     display:flex;
     justify-content: space-around;

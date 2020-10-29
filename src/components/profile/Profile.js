@@ -137,35 +137,35 @@ const Profile = props => {
                 <div className='postabout'>
                     <About />
                     <div className='posts'>
-                    <h1>Posts</h1>
-                    {
-                        props.isLoading ? 
-                        <Loader type='Bars' /> :
-                        ''
-                    }
-                    {props.posts.length > 0 ?
-                        <div className='postscont'>
-                            {props.posts.map(post => (
-                                <div key={post.id} className='borderPosts'>
-                                    <p>{post.post}</p>
-                                    <p>{post.location}</p>
-                                    <p>{post.created_at}</p>
-                                    {post.img.length > 10 ? 
-                                        <img src={post.img} className='postimage'/> :
-                                        <p>{post.img}</p>
-                                    }
-                                    <LoadComments post={post} sidebar={false} username={props.user.username}/>
-                                    <ListLikes post={post} /> 
-                                    <PostChooser post={post} />
-                                    {!likedPostId.includes(post.id) ? 
-                                        <a className='like' onClick={() => addLikeHelper(post.id)}>Like</a> :
-                                        <a className='unlike' onClick={() => removeLikeHelper(post.id)}>Unlike</a>
-                                    }
-                                </div>
-                            ))}
-                        </div> :
-                        <p>No posts to display</p>
-                    }
+                        <h1>Posts</h1>
+                        {
+                            props.isLoading ? 
+                            <Loader type='Bars' /> :
+                            ''
+                        }
+                        {props.posts.length > 0 ?
+                            <div className='postscont'>
+                                {props.posts.map(post => (
+                                    <div key={post.id} className='borderPosts'>
+                                        <p>{post.post}</p>
+                                        <p>{post.location}</p>
+                                        <p>{post.created_at}</p>
+                                        {post.img.length > 10 ? 
+                                            <img src={post.img} className='postimage'/> :
+                                            <p>{post.img}</p>
+                                        }
+                                        <LoadComments post={post} sidebar={false} username={props.user.username}/>
+                                        <ListLikes post={post} /> 
+                                        <PostChooser post={post} />
+                                        {!likedPostId.includes(post.id) ? 
+                                            <a className='like' onClick={() => addLikeHelper(post.id)}>Like</a> :
+                                            <a className='unlike' onClick={() => removeLikeHelper(post.id)}>Unlike</a>
+                                        }
+                                    </div>
+                                ))}
+                            </div> :
+                            <p>No posts to display</p>
+                        }
                     </div>
                 </div>
             </div>
