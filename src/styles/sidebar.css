@@ -1,12 +1,13 @@
 .sidebarcont{
-    width: 13%;
+    width: 230px;
     /* height: 200px; */
     right: 0;
-    margin-right: 2%;
+    margin-right: 3rem;
     border-radius: 2rem;
     max-height: 250px;
     overflow-y:auto;
-    margin-top: -75px
+    margin-top: -75px;
+    background-color:white;
 }
 
 ::-webkit-scrollbar {
@@ -16,7 +17,14 @@
 .hideside {
     visibility: hidden;
 }
-
+@media screen and (max-width: 1100px){
+    .sidebarcont{
+        visibility: hidden;
+    }
+    .hideside{
+        visibility: visible;
+    }
+}
 .closer{
     position:fixed;
     right: .5rem;
@@ -28,11 +36,11 @@
     border: 2px solid red
 }
 
-.scrolly {
+/* .scrolly {
     position: absolute;
     padding: .5% 2%;
     border: 2px solid green
-}
+} */
 
 .sidebarflex{
     display: flex;

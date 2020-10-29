@@ -10,6 +10,11 @@
     padding: 1.25rem;
     border-radius: 2rem;
 }
+@media screen and (max-width: 1650px){
+    .postform{
+        width: 500px
+    }
+}
 .postpost{
     min-width: 90%;
     box-sizing: border-box;
@@ -37,7 +42,6 @@
     width: 90%;
     display: flex;
     justify-content: space-around;
-    align-items: center;
     text-align: center;
     margin: 2rem auto;
     padding: 1.25rem;
@@ -46,6 +50,17 @@
 
 .posts{
     width: 60%;
+}
+
+@media screen and (max-width: 850px){
+    .postabout{
+        flex-direction: column;
+        align-items: center;
+        width: 98%;
+    }
+    .posts{
+        width: 90%;
+    }
 }
 
 #editbutt {
@@ -71,7 +86,20 @@
     border-radius: 1rem;
     margin: 0 0 1rem 0
 }
-
+@media screen and (max-width: 850px){
+    .postimage{
+        max-width: 98%;
+        max-height: 350px;
+    }
+    .posts{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 550px){
+    .postabout{
+        width: 500px
+    }
+}
 .postimage2{
     max-width: 85%;
     max-height: 200px;
