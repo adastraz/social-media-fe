@@ -66,6 +66,9 @@
     flex-direction: row-reverse;
     justify-content: space-around;
 }
+#listlikes{
+    line-height: 1.75rem;
+}
 
 .borderPosts{
     border: 1px solid grey;
@@ -114,15 +117,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 auto
 }
 .likename{
     width: 50%; 
+    height: 100px
 }
 .butbut{
     width: 15%;
     position: absolute;
-    right: 25px
+    right: 25px;
 }
 .head{
     display:flex;
