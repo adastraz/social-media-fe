@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { reducer } from './reducers'
 import { BrowserRouter as Router } from 'react-router-dom'
 import history from './utils/history'
+import './styles/reset.css'
 
 const store = createStore(reducer, applyMiddleware(thunk, logger))
 
