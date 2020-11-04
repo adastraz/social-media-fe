@@ -61,6 +61,9 @@
     .posts{
         width: 90%;
     }
+    .commentcomment{
+        min-width: 100%
+    }
 }
 
 #editbutt {

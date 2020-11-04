@@ -95,7 +95,8 @@
 }
 @media screen and (max-width: 550px){
     .explore{
-        width: 500px;
+        width: 95%;
+        max-height: 80%
     }
 }
 
