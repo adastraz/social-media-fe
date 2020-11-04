@@ -97,7 +97,18 @@
 }
 @media screen and (max-width: 550px){
     .postabout{
-        width: 500px
+        width: 90%;
+    }
+    .postform {
+        width: 90%;
+    }
+}
+@media screen and (max-width: 450px){
+    .postabout{
+        width: 95%;
+    }
+    .postform {
+        width: 95%;
     }
 }
 .postimage2{
