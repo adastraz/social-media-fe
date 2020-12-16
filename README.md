@@ -1,7 +1,5 @@
 This app is hosted by Amplify (on a seperate repository due to file structure)! : https://developement.d2gyknsnhpxh90.amplifyapp.com/
 
-Wireframe designs: https://www.figma.com/file/b4WQld5y3Rcr3vRJvhr3mN/Untitled?node-id=0%3A1
-
 ## Table of Contents
 * [General Information](#general-information)
 * [Technologies](#technologies)
